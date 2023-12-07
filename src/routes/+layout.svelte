@@ -1,6 +1,8 @@
 <script>
 	import "../styles/fonts.css"
 	import "../styles/global.css"
+	import Logo from "$lib/components/Logo.svelte";
+
 	import { page } from "$app/stores"
 
 	$: path = $page.url.pathname;
@@ -8,19 +10,20 @@
 </script>
 
 <div>
-	<!-- <UnderConstruction /> -->
-	{#if path !== "/"}
-		<header>
-			<a class="home" href="/">DIPS Park</a>
-		</header>
-	{/if}
+	
+	<header>
+		<Logo />
+	</header>
 	<slot />
 </div>
 
 
 <style>
 	header {
-		margin-top: 59px;
+		margin-top: 42px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.home {
