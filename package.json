@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@emotion/css": "^11.11.2"
+		"@emotion/css": "^11.11.2",
+		"polished": "^4.2.2"
 	}
 }
