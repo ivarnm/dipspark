@@ -7,14 +7,11 @@
 	import YourBookings from '$lib/components/YourBookings.svelte';
 	import PlusIcon from '$lib/components/PlusIcon.svelte';
 
-	const date = new Date();
-
 </script>
 
 <div class="index">
 	<div>
 		<Name name="Ola" />
-		<!-- <BookedDate date={new Date("11.08.2023")} /> -->
 		<YourBookings bookings={data.bookings}  />
 		<PlusIcon />
 	</div>
@@ -22,6 +19,5 @@
 
 <style>
 	.index {
-		margin: 50px 30px 50px 30px;
 	}
 </style>

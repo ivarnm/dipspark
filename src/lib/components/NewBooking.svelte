@@ -1,11 +1,11 @@
 <script>
-  import BookedDate from '$lib/components/BookedDate.svelte';
+	import BookedDate from '$lib/components/BookedDate.svelte';
 
-  export let bookings = []
+	export let bookings = [];
 </script>
 
 <div class="container">
-	<h2>Dine bookinger</h2>
+	<h2>Book parkering</h2>
 
 	{#each bookings as booking (booking.id)}
 		<BookedDate {booking} />

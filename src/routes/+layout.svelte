@@ -14,7 +14,9 @@
 	<header>
 		<Logo />
 	</header>
-	<slot />
+	<main>
+		<slot />
+	</main>
 </div>
 
 
@@ -24,6 +26,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	main {
+		margin: 50px 30px 50px 30px;
 	}
 
 	.home {

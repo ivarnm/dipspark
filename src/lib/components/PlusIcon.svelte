@@ -4,7 +4,7 @@
 </script>
 
 
-<div class="container">
+<a class="container" href="/book">
   <Button style={{backgroundColor: '#3D405B', borderRadius: '50%', padding: '0'}}>
     <div class="circle">
       <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,8 +12,7 @@
       </svg>
     </div>
   </Button>
-
-</div>
+</a>
 
 <style>
   .container {

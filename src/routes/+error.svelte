@@ -1,3 +1,5 @@
+<script>
+	import { page } from '$app/stores';
+</script>
 
-
-<p>Whoops</p>
+<h1>{$page.error.message}</h1>
