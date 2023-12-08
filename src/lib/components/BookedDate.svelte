@@ -1,18 +1,25 @@
 <script>
   import DateFormat from "$lib/helpers/DateFormat"
-  import Button from "$lib/components/Button.svelte";
+  import BookingDay from "$lib/helpers/BookingDay"
+  import ExpandableButton from "$lib/components/ExpandableButton.svelte";
 
-  export let booking;
-  const formattedDate = DateFormat.localeString(booking.parkingDate);
+  export let bookingDay;
+  $: formattedDate = DateFormat.localeString(bookingDay.date);
+  $: spotsLeft = BookingDay.parkingSpotsLeft(bookingDay);
 
 </script>
 <div class="container">
-  <Button style={{backgroundColor: '#81B29A'}}>
-    <div class="booked-date">
+  <ExpandableButton style={{backgroundColor: '#81B29A'}}>
+    <div slot="button" class="booked-date">
       <p class="date">{formattedDate ? formattedDate : "Ugyldig dato"}</p>
-      <p class="free-spots">4</p>
+      <p class="free-spots">{spotsLeft}</p>
     </div>
-  </Button>
+    <div slot="expanded">
+      {#each bookingDay.bookings as booking (booking.id)}
+        <p>{booking.userName}</p>
+      {/each}
+    </div>
+  </ExpandableButton>
 </div>
 
 <style>

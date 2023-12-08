@@ -12,7 +12,7 @@
 <div class="index">
 	<div>
 		<Name name="Ola" />
-		<YourBookings bookings={data.bookings}  />
+		<YourBookings bookingDays={data.bookingDays}  />
 		<PlusIcon />
 	</div>
 </div>

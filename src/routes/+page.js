@@ -4,12 +4,15 @@ import DateFormat from '../lib/helpers/DateFormat';
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
   try {
-    const userId = 1;
-    const res = await fetch(`https://dipspark-service.azurewebsites.net/BookingsByUser?userid=${userId}`);
-    const bookings = await res.json();
-    // console.log(bookings);
+    const dateRange = DateFormat.getDateRange();
+    const res = await fetch(`https://dipspark-service.azurewebsites.net/BookingsByDateRange?startdate=${dateRange[0]}&enddate=${dateRange[1]}`);
+    let bookingDays = await res.json();
+    bookingDays = DateFormat.fillMissingDays(dateRange, bookingDays);
+
+    // console.log(dateRange);
+    // console.log(bookingDays);
   
-    return { bookings };
+    return { bookingDays };
     
   } catch (ex) {
     console.log(ex);
