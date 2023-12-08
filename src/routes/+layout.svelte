@@ -9,14 +9,6 @@
 
 	$: path = $page.url.pathname;
 
-	function loginCompleted(event) {
-		console.log('Entered LoginCompleted');
-    // Access the data sent by the child component
-    receivedData = event.detail.data;
-    console.log('Received Data:', receivedData);
-		isLoggedIn = true;
-  }
-
 	let isLoggedIn = false;
 	let loggedInUser = false;
 	let user = {
@@ -52,7 +44,7 @@
 		{#if isLoggedIn}
 			<slot />	
 		{:else}
-		 <Login on:loginComplete={loginCompleted}/>
+		 <Login/>
 		{/if}
 
 	</main>
