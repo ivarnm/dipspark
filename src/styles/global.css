@@ -10,7 +10,8 @@ html {
 body {
   background: #F4F1DE;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
 }
 h1,h2,h3,h4,a,p,li {
   color: #333333;

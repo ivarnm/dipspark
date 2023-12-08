@@ -16,7 +16,6 @@
 		if(loggedInUser){
 			let user = JSON.parse(loggedInUser)[0];
 			name = user.name;
-			console.log("Page load with user name : ", name)
 		}
 		
     });

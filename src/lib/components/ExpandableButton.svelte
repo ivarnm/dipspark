@@ -1,5 +1,8 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import Button from "$lib/components/Button.svelte";
+  
+  const dispatch = createEventDispatcher();
 
   export let style
 
@@ -16,12 +19,16 @@
       expandedClasses = 'expanded'
     }
   }
+
+  const handleClick = () => {
+    dispatch('buttonClick', expanded);
+  };
 </script>
 
 
-<div class="container" on:click={toggleExpanded} on:keydown={() => {}}>
-  <div class="button">
-    <Button {style}>
+<div class="container">
+  <div class="button" on:click={toggleExpanded} on:keydown={() => {}}>
+    <Button {style} on:buttonClick={handleClick}>
       <slot name="button" />
     </Button>
   </div>

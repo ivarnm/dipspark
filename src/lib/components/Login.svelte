@@ -12,7 +12,6 @@
   }
 
   async function LoginUser() {
-    console.log('Button Clicked!');
 
     try {
       // Make an asynchronous API call using the fetch function
@@ -21,12 +20,10 @@
       // Check if the request was successful (status code 200)
       if (response.ok) {
         const userdata = await response.json();
-        console.log('API Response:', userdata);
 
         localStorage.setItem('loggedInUser', JSON.stringify(userdata));
         // Process the data or update the component state as needed
 
-        console.log('User put to localstorage, reloading..', userdata);
         location.reload(true);
                 
       } else {

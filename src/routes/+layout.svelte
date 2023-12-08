@@ -20,10 +20,8 @@
 	onMount(() => {
 		loggedInUser = localStorage.getItem("loggedInUser");
 		
-		console.log(loggedInUser)
 		if(loggedInUser){
 			user = JSON.parse(loggedInUser)[0];
-			console.log('User: ' + user.name + " ID: " + user.id)
 			isLoggedIn = true;
 		}
 		

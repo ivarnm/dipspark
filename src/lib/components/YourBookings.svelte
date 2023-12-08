@@ -1,8 +1,10 @@
 <script>
+	import User from "$lib/helpers/User"
   import BookedDate from '$lib/components/BookedDate.svelte';
 
   export let bookingDays = []
-  const userId = 1; // TOOD: replace when login is implemented
+	
+  const userId = User.getLoggedInUser().id;
 
   $: yourBookings = bookingDays.filter(day => day.bookings.find(booking => booking.userId == userId));
 </script>
@@ -13,7 +15,7 @@
     <p>Du har ingen reserverte parkeringer</p>
   {/if}
 	{#each yourBookings as bookingDay (bookingDay.date)}
-		<BookedDate {bookingDay} />
+		<BookedDate {bookingDay} style={{backgroundColor: '#81B29A'}} />
 	{/each}
 </div>
 
