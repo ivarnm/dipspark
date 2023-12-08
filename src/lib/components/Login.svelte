@@ -130,7 +130,6 @@
     font-size: 20px;
     min-height: 53px;
     flex-shrink: 0;
-    padding: 0 20px; 
     border-radius: 2px;
     border: 2px solid #CCC;
     background: #F4F1DE; 
