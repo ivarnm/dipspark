@@ -33,7 +33,6 @@
       const booking = {
         "userId": userId,
         "parkingDate": bookingDay.date,
-        "parkingId": 3
       }
       const response = await fetch(`https://dipspark-service.azurewebsites.net/Booking/`, {
         method: 'POST',
