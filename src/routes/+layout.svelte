@@ -1,6 +1,7 @@
 <script>
 	import "../styles/fonts.css"
 	import "../styles/global.css"
+	import { user } from '$lib/stores/stores.js'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import {onMount} from "svelte";
@@ -11,17 +12,12 @@
 
 	let isLoggedIn = false;
 	let loggedInUser = false;
-	let user = {
-    "id": 0,
-    "name": "",
-    "username": ""
-  };
 
 	onMount(() => {
 		loggedInUser = localStorage.getItem("loggedInUser");
 		
 		if(loggedInUser){
-			user = JSON.parse(loggedInUser)[0];
+			$user = JSON.parse(loggedInUser)[0];
 			isLoggedIn = true;
 		}
 		

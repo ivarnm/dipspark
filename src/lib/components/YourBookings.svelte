@@ -1,12 +1,8 @@
 <script>
-	import User from "$lib/helpers/User"
+	import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
   import BookedDate from '$lib/components/BookedDate.svelte';
-
-  export let bookingDays = []
 	
-  const userId = User.getLoggedInUser().id;
-
-  $: yourBookings = bookingDays.filter(day => day.bookings.find(booking => booking.userId == userId));
+  $: yourBookings = $bookingDays.filter(day => day.bookings.find(booking => booking.userId == $user.id));
 </script>
 
 <div class="container">

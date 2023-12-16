@@ -1,6 +1,12 @@
-function parkingSpotsLeft(bookingDay)
+function parkingSpotsLeft(bookingDay, parkingSpots)
 {
-  return 4 - bookingDay.bookings.length;
+  const defaultParkingSpotUsers = parkingSpots.map(p => p.defaultUserId).filter(id => id > 0);
+
+  const isCancellationBooking = (booking) => defaultParkingSpotUsers.includes(booking.userId);
+  const cancellations = bookingDay.bookings.filter(b => isCancellationBooking(b)).length
+  const normalBookings = bookingDay.bookings.filter(b => !isCancellationBooking(b)).length
+  
+  return parkingSpots.length - defaultParkingSpotUsers.length + cancellations - normalBookings
 }
 
 

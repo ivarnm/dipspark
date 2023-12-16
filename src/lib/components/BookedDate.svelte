@@ -2,9 +2,9 @@
   import { createEventDispatcher } from 'svelte';
   import { css } from '@emotion/css';
   import { invalidateAll } from '$app/navigation';
+  import { user, parkingSpots } from "$lib/stores/stores.js"
   import DateFormat from "$lib/helpers/DateFormat"
   import BookingDay from "$lib/helpers/BookingDay"
-  import User from "$lib/helpers/User"
   import Button from '$lib/components/Button.svelte';
   import ExpandableButton from "$lib/components/ExpandableButton.svelte";
 
@@ -13,11 +13,9 @@
 
   const dispatch = createEventDispatcher();
 
-  const userId = User.getLoggedInUser().id;
-
   $: formattedDate = DateFormat.localeString(bookingDay.date);
-  $: spotsLeft = BookingDay.parkingSpotsLeft(bookingDay);
-  $: haveBooked = bookingDay.bookings.find(booking => booking.userId == userId);
+  $: spotsLeft = BookingDay.parkingSpotsLeft(bookingDay, $parkingSpots);
+  $: haveBooked = bookingDay.bookings.find(booking => booking.userId == $user.id);
 
   const handleClick = () => {
     dispatch('buttonClick');
@@ -31,7 +29,7 @@
   const bookDay = async () => {
     try {
       const booking = {
-        "userId": userId,
+        "userId": $user.id,
         "parkingDate": bookingDay.date,
       }
       const response = await fetch(`https://dipspark-service.azurewebsites.net/Booking/`, {
@@ -55,7 +53,7 @@
 
   const deleteBooking = async () => {
     try {
-      const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == userId);
+      const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
       const response = await fetch(`https://dipspark-service.azurewebsites.net/Bookings/${bookingToDelete.id}`, {
         method: 'DELETE',
         headers: {

@@ -1,10 +1,11 @@
 <script>
-	export let name = "";
+	import { user } from "$lib/stores/stores.js"
+
 </script>
 
 <div class="name">
 	<p>
-		Hei {name}
+		Hei {$user.name}
 	</p>
 </div>
 

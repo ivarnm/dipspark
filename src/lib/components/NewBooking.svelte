@@ -1,26 +1,22 @@
 <script>
+  import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
   import BookingDay from "$lib/helpers/BookingDay"
-  import User from "$lib/helpers/User"
 	import BookedDate from '$lib/components/BookedDate.svelte';
 
-
-  export let bookingDays = []
-  const userId = User.getLoggedInUser().id;
-
   const haveBookedDay = (bookingDay) => {
-    return bookingDay.bookings.find(booking => booking.userId == userId);
+    return bookingDay.bookings.find(booking => booking.userId == $user.id);
   }
 
-  $: styles = bookingDays.map((day, i) => {
+  $: styles = $bookingDays.map((day, i) => {
     return {
       backgroundColor: getBackgroundColor(day, i),
       color: getColor(day, i)
     }
   })
 
-  $: expandedBookings = bookingDays.map(day => false)
+  $: expandedBookings = $bookingDays.map(day => false)
 
-  $: spotsLeft = bookingDays.map(day => BookingDay.parkingSpotsLeft(day));
+  $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
 
 
   $: getBackgroundColor = (bookingDay, index) => {
@@ -44,7 +40,7 @@
 <div class="container">
 	<h2>Book parkering</h2>
 
-	{#each bookingDays as bookingDay, i (bookingDay.date)}
+	{#each $bookingDays as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
       <BookedDate {bookingDay} style={styles[i]} on:buttonClick={handleClick(i)} />
     </div>
