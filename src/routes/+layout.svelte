@@ -4,6 +4,7 @@
 	import { user } from '$lib/stores/stores.js'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
+	import UserDropdown from "$lib/components/UserDropdown.svelte"
 	import {onMount} from "svelte";
 
 	import { page } from "$app/stores"
@@ -32,7 +33,15 @@
 <div>
 	
 	<header>
-		<Logo />
+		<div class="user">
+			{#if isLoggedIn}
+				<UserDropdown />
+			{/if}
+		</div>
+
+		<div class="logo">
+			<Logo />
+		</div>
 	</header>
 	<main>
 		{#if isLoggedIn}
@@ -47,6 +56,16 @@
 
 <style>
 	header {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.user {
+		margin: 20px 30px;
+		align-self: flex-end;
+	}
+
+	.logo {
 		margin-top: 42px;
 		display: flex;
 		align-items: center;

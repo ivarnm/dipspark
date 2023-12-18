@@ -21,6 +21,5 @@
 </div>
 
 <style>
-	.index {
-	}
+
 </style>

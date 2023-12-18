@@ -17,6 +17,7 @@
     border-radius: ${style.borderRadius ? style.borderRadius : '0'};
     padding: ${style.padding ? style.padding : '0 10px'};
     color: ${style.color ? style.color : 'black'};
+    border: ${style.border ? style.border : 'none'};
 
     &:active {
       background-color: ${darken(0.1, backgroundColor)};
@@ -31,7 +32,6 @@
 
 <style>
   button {
-    border: none;
     width: 100%;
     font-size: 20px;
     min-height: 53px;
