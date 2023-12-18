@@ -7,12 +7,10 @@
 	const handleLogout = () => {
 		localStorage.removeItem("loggedInUser")
 		location.reload(true);
-		// console.log('Logging out...');
 	};
 
   const handleClick = () => {
     expanded = !expanded
-    console.log("click");
   }
 
   const style = {
