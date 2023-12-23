@@ -21,6 +21,11 @@
     dispatch('buttonClick');
   };
 
+  const isCancellation = (booking) => {
+    const defaultParkingSpotUsers = $parkingSpots.map(p => p.defaultUserId).filter(id => id > 0);
+    return defaultParkingSpotUsers.includes(booking.userId);
+  }
+
   $: p = css`
     color: ${style.color ? style.color : 'black'};
     border-color: ${style.color ? style.color : 'black'};
@@ -78,7 +83,7 @@
     </div>
     <div slot="expanded">
       {#each bookingDay.bookings as booking (booking.id)}
-        <p>{booking.userName}</p>
+        <p style="text-decoration: {isCancellation(booking) ? 'line-through' : 'none'};">{booking.userName}</p>
       {/each}
       {#if haveBooked}
         <div class="book-button">
