@@ -9,32 +9,30 @@
 
   $: styles = $bookingDays.map((day, i) => {
     return {
-      backgroundColor: getBackgroundColor(day, i),
+      ...getBackgroundColors(day),
       color: getColor(day, i)
     }
   })
 
-  $: expandedBookings = $bookingDays.map(day => false)
-
   $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
 
 
-  $: getBackgroundColor = (bookingDay, index) => {
-    if (haveBookedDay(bookingDay)) return "#81B29A";
-    if (expandedBookings[index]) return "#F2CC8F";
-    return '#D9D9D9';
+  $: getBackgroundColors = (bookingDay) => {
+    if (haveBookedDay(bookingDay)) {
+      return {
+        backgroundColor: "#81B29A",
+      }
+    }
+    return {
+      backgroundColor: "#D9D9D9",
+      expandedColor: "#F2CC8F"
+    }
   }
 
   $: getColor = (bookingDay, index) => {
     if (!spotsLeft[index] && !haveBookedDay(bookingDay)) return '#666';
     return 'black';
   }
-
-  const handleClick = (index) => {
-    const expanded = expandedBookings;
-    expanded[index] = !expanded[index];
-    expandedBookings = expanded;
-  };
 </script>
 
 <div class="container">
@@ -42,7 +40,7 @@
 
 	{#each $bookingDays as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
-      <BookedDate {bookingDay} style={styles[i]} on:buttonClick={handleClick(i)} />
+      <BookedDate {bookingDay} style={styles[i]} />
     </div>
 	{/each}
 </div>

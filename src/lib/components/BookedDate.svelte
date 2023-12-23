@@ -44,7 +44,6 @@
         console.error('API Error:', response.statusText);
         return;
       }
-      console.log("Booking created");
       invalidateAll();
     } catch (error) {
       console.error('Error:', error.message);
@@ -64,7 +63,6 @@
         console.error('API Error:', response.statusText);
         return;
       }
-      console.log("Booking deleted");
       invalidateAll();
     } catch (error) {
       console.error('Error:', error.message);

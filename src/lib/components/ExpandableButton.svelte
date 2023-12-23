@@ -22,10 +22,12 @@
     }
   }
 
+  $: buttonStyle = {
+    ...style,
+    backgroundColor: expanded && !!style.expandedColor ? style.expandedColor : style.backgroundColor
+  }
+
   $: expandedExtra = css`
-		background-color: ${expandedStyle.backgroundColor ? expandedStyle.backgroundColor : '#D9D9D9'};
-    color: ${expandedStyle.color ? expandedStyle.color : 'black'};
-    border: ${expandedStyle.border ? expandedStyle.border : 'none'};
     position: ${expandedStyle.position ? expandedStyle.position : 'static'};
 	`;
 
@@ -37,7 +39,7 @@
 
 <div class="container">
   <div class="button" on:click={toggleExpanded} on:keydown={() => {}}>
-    <Button {style} on:buttonClick={handleClick}>
+    <Button style={buttonStyle} on:buttonClick={handleClick}>
       <slot name="button" />
     </Button>
   </div>
@@ -59,6 +61,7 @@
     transition: 0.3s ease;
     width: 100%;
     box-sizing: border-box;
+    background-color: #D9D9D9;
   }
 
   .expanded.visible {
