@@ -3,8 +3,10 @@
   import { css } from '@emotion/css';
   import { invalidateAll } from '$app/navigation';
   import { user, parkingSpots } from "$lib/stores/stores.js"
+  import { BookDay, DeleteBooking } from '$lib/Api'
   import DateFormat from "$lib/helpers/DateFormat"
   import BookingDay from "$lib/helpers/BookingDay"
+  import User from '$lib/helpers/User'
   import Button from '$lib/components/Button.svelte';
   import ExpandableButton from "$lib/components/ExpandableButton.svelte";
 
@@ -16,6 +18,7 @@
   $: formattedDate = DateFormat.localeString(bookingDay.date);
   $: spotsLeft = BookingDay.parkingSpotsLeft(bookingDay, $parkingSpots);
   $: haveBooked = bookingDay.bookings.find(booking => booking.userId == $user.id);
+  $: isDefaultUser = User.isDefaultUser($user, $parkingSpots)
 
   const handleClick = () => {
     dispatch('buttonClick');
@@ -32,46 +35,31 @@
 	`;
 
   const bookDay = async () => {
-    try {
-      const booking = {
-        "userId": $user.id,
-        "parkingDate": bookingDay.date,
-      }
-      const response = await fetch(`https://dipspark-service.azurewebsites.net/Booking/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(booking)
-      });
-
-      if (!response.ok) {
-        console.error('API Error:', response.statusText);
-        return;
-      }
-      invalidateAll();
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
+    await BookDay(fetch, $user.id, bookingDay.date);
+    invalidateAll();
   }
 
   const deleteBooking = async () => {
-    try {
-      const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
-      const response = await fetch(`https://dipspark-service.azurewebsites.net/Bookings/${bookingToDelete.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        console.error('API Error:', response.statusText);
-        return;
-      }
-      invalidateAll();
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
+    const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
+    await DeleteBooking(fetch, bookingToDelete.id);
+    invalidateAll();
+    
+    // try {
+    //   const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
+    //   const response = await fetch(`https://dipspark-service.azurewebsites.net/Bookings/${bookingToDelete.id}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   });
+    //   if (!response.ok) {
+    //     console.error('API Error:', response.statusText);
+    //     return;
+    //   }
+    //   invalidateAll();
+    // } catch (error) {
+    //   console.error('Error:', error.message);
+    // }
   }
 
 </script>
@@ -88,7 +76,7 @@
       {#if haveBooked}
         <div class="book-button">
           <Button style={{backgroundColor: "#3D405B", color: 'white', padding: '0 15px'}} on:buttonClick={deleteBooking}>
-            Fjern reservasjon
+            {isDefaultUser ? 'Fjern kansellering' : 'Fjern reservasjon'}
           </Button>
         </div>
       {/if}
