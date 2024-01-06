@@ -44,7 +44,7 @@
   <div class="bookings">
     {#each $bookingDays as bookingDay, i (bookingDay.date)}
       <div class="booked-date">
-        <label>
+        <label class="checkbox-label">
           <input type="checkbox" bind:group={selection} value={bookingDay.date}/>
           {DateFormat.localeString(bookingDay.date)}
         </label>

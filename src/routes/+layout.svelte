@@ -75,10 +75,4 @@
 	main {
 		margin: 50px 30px 50px 30px;
 	}
-
-	.home {
-		text-decoration: none;
-		font-size: 24px;
-		margin-left: 10%;
-		}
 </style>
