@@ -38,7 +38,7 @@
 <div class="container">
 	<h2>Book parkering</h2>
 
-	{#each $bookingDays as bookingDay, i (bookingDay.date)}
+	{#each $bookingDays.slice(0, 6) as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
       <BookedDate {bookingDay} style={styles[i]} />
     </div>

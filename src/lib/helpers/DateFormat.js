@@ -16,7 +16,7 @@ function formatDate(date) {
 function getDateRange() {
   const today = new Date();
   const sixDaysLater = new Date(today);
-  sixDaysLater.setDate(today.getDate() + 6);
+  sixDaysLater.setDate(today.getDate() + 9);
 
   const todayFormatted = formatDate(today);
   const sixDaysLaterFormatted = formatDate(sixDaysLater);
@@ -25,7 +25,7 @@ function getDateRange() {
 
 function fillMissingDays(dateRange, bookingDays) {
   const startDate = new Date();
-  const endDate = new Date(startDate).setDate(startDate.getDate()+6);
+  const endDate = new Date(startDate).setDate(startDate.getDate()+9);
   const result = [];
 
   for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
