@@ -33,8 +33,9 @@ function fillMissingDays(dateRange, bookingDays) {
     const existingBooking = bookingDays.find(day => new Date(day.date+"Z").toISOString().split('T')[0] === formattedDate);
 
     if (existingBooking) {
-      existingBooking.date = formattedDate;
-      result.push(existingBooking);
+      let booking = { ...existingBooking };
+      booking.date = formattedDate;      
+      result.push(booking);
     } else {
       result.push({ date: formattedDate, bookings: [] });
     }

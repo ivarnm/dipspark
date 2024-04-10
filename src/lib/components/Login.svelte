@@ -90,8 +90,6 @@
       </Button>
     </div>
   {:else}
-
-
     <div on:click={LoginUser} on:keydown={() => {}}> 
       <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
         Logg inn
