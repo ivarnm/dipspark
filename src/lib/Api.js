@@ -86,3 +86,60 @@ export async function DeleteBooking(fetch, bookingId) {
     console.error('Error:', error.message);
   }
 }
+
+export async function GetUsers(fetch) {
+  try {
+    const res = await fetch(`${server}/AllUsers`);
+    const users = await res.json();
+    return users;
+  } 
+  catch (ex) {
+    console.log(error)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function GetUser(fetch, username) {
+  try {
+    const res = await fetch(`${server}/Users?username=${username.toLowerCase()}`);
+    const user = await res.json();
+    return user;
+  } 
+  catch (ex) {
+    console.log(error)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function CreateUser(fetch, name, username) {
+  try {
+    let user = {
+      "name": name,
+      "username": username.toLowerCase()
+    };
+    const res = await fetch(`${server}/User`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user)
+    });
+    
+    if (!res.ok) {
+      console.error('API Error:', res.statusText);
+      throw error(500, {
+        message: 'Noe gikk galt'
+      });
+    }
+  }
+  catch (error) {
+    console.log(error)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}

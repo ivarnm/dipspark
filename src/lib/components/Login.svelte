@@ -1,123 +1,116 @@
 <script>
   import Button from "$lib/components/Button.svelte";
-  import {writable} from 'svelte/store';
+  import { GetUsers, GetUser, CreateUser } from '$lib/Api'
 
   let Username = '';
   let SignupName = '';
 
   let RegisterUserClicked = false;
+  let ErrorMessage = null;
 
   function OnCreateUser() {
     RegisterUserClicked = true;
+    ErrorMessage = null;
+  }
+
+  function OnBack() {
+    RegisterUserClicked = false;
+    ErrorMessage = null;
   }
 
   async function LoginUser() {
-
     try {
-      // Make an asynchronous API call using the fetch function
-      const response = await fetch(`https://dipspark-service.azurewebsites.net/Users?username=${Username}`);
-      
-      // Check if the request was successful (status code 200)
-      if (response.ok) {
-        const userdata = await response.json();
-
-        localStorage.setItem('loggedInUser', JSON.stringify(userdata));
-        // Process the data or update the component state as needed
-
-        location.reload(true);
-                
-      } else {
-        console.error('API Error:', response.statusText);
-        // Handle error scenarios
+      ErrorMessage = null;
+      if (Username.length === 0) {
+        ErrorMessage = "Brukernavn kan ikke være tomt"
+        return;
       }
-    } catch (error) {
-      console.error('Error:', error.message);
-      // Handle other types of errors, such as network issues
+
+      const user = await GetUser(fetch, Username);
+      if (user.length === 0) {
+        ErrorMessage = "Brukeren eksisterer ikke"
+        return;
+      }
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      location.reload(true);
+    } 
+    catch (error) {
+      ErrorMessage = "Det skjedde en feil, prøv igjen senere"
     }
   }
 
   async function SignUpUser() {
-    console.log('Button Clicked!');
-
     try {
+      ErrorMessage = null;
 
-      let user = {
-        "name": SignupName,
-        "username": Username
-      };
-      // Make an asynchronous API call using the fetch function
-      const response = await fetch(`https://dipspark-service.azurewebsites.net/User`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user)
-      });
-      
-      // Check if the request was successful (status code 200)
-      if (response.ok) {
-
-
-        console.log('User created, reloading..');
-        location.reload(true);
-                
-      } else {
-        console.error('API Error:', response.statusText);
-        // Handle error scenarios
+      if (Username.length === 0 || SignupName.length === 0) {
+        ErrorMessage = "Brukernavn og visningsnavn må være fylt ut"
+        return;
       }
-    } catch (error) {
-      console.error('Error:', error.message);
-      // Handle other types of errors, such as network issues
+
+      var users = await GetUsers(fetch);
+      if (users.find(u => u.username === Username.toLowerCase())) {
+        ErrorMessage = "Brukeren eksisterer allerede"
+        return;
+      }
+      await CreateUser(fetch, SignupName, Username);
+      await LoginUser();
+    } 
+    catch (error) {
+      ErrorMessage = "Det skjedde en feil, prøv igjen senere"
     }
   }
 
 </script>
 <div class="container">
-
-
-
-
-  <label class="label" for="myInput">Brukernavn</label> <br>
+  <label class="label" for="myInput">Brukernavn</label>
   <input type="text" id="myInput" bind:value={Username} />
   {#if RegisterUserClicked}
 
-    <label class="label" for="myInput">Visningsnavn</label> <br>
+    <label class="label" for="myInput">Visningsnavn</label>
     <input type="text" id="SignupNameInput" bind:value={SignupName} />
 
-    <div on:click={SignUpUser} on:keydown={() => {}}> 
+    <div class="button" on:click={SignUpUser} on:keydown={() => {}}> 
       <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
         Registrer deg
       </Button>
     </div>
+    <div class="back">
+      <button on:click={OnBack} class="back-button">Tilbake</button>
+    </div>
   {:else}
-    <div on:click={LoginUser} on:keydown={() => {}}> 
+    <div class="button" on:click={LoginUser} on:keydown={() => {}}> 
       <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
         Logg inn
       </Button>
+      <p style="text-align: center;">eller</p>
     </div>
 
-    <br>
-    <div on:click={OnCreateUser} on:keydown={() => {}}> 
+    <div class="button" on:click={OnCreateUser} on:keydown={() => {}}> 
       <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
         Opprett ny bruker
       </Button>
     </div>
   {/if}
+  {#if ErrorMessage !== null}
+    <p class="error">{ErrorMessage}</p>
+  {/if}
 
-
-  
 </div>
 
 <style>
   .container {
     margin: 14px 0;
     width: 100%;
+    /* display: flex;
+    flex-direction: column; */
     align-items: center;
   }
 
   label {
     display: block;
     color: #333;
+    margin-bottom: 5px;
   }
 
   input {
@@ -129,6 +122,38 @@
     border: 2px solid #CCC;
     background: #F4F1DE; 
     margin-bottom: 20px;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .button {
+    margin-bottom: 1em;
+    width: 100%;
+  }
+
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .back {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .back-button {
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #333;
+
+    &:hover {
+      color: black;
+    }
   }
   
 </style>
