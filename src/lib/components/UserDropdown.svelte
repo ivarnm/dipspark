@@ -6,7 +6,7 @@
 
 	const handleLogout = () => {
 		localStorage.removeItem("loggedInUser")
-		location.reload(true);
+		location.href = "/";
 	};
 
   const handleClick = () => {
