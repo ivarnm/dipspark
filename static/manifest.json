@@ -1,0 +1,15 @@
+{
+    "name": "DIPS Park",
+    "description": "Everything you need to book a parking spot at DIPS Trondheim",
+    "display": "standalone",
+    "start_url": "/",
+    "id": "/",
+    "icons": [
+        {
+            "src": "logo.png",
+            "sizes": "159x159",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
