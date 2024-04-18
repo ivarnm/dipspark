@@ -4,6 +4,7 @@
   import { invalidateAll } from '$app/navigation';
   import { user, parkingSpots } from "$lib/stores/stores.js"
   import { BookDay, DeleteBooking } from '$lib/Api'
+  import styles from '$lib/Styles'
   import DateFormat from "$lib/helpers/DateFormat"
   import BookingDay from "$lib/helpers/BookingDay"
   import User from '$lib/helpers/User'
@@ -30,8 +31,8 @@
   }
 
   $: p = css`
-    color: ${style.color ? style.color : 'black'};
-    border-color: ${style.color ? style.color : 'black'};
+    color: var(${style.color ? style.color : '--netutral-100'});
+    border-color: var(${style.color ? style.color : '--netutral-100'});
 	`;
 
   const bookDay = async () => {
@@ -43,23 +44,6 @@
     const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
     await DeleteBooking(fetch, bookingToDelete.id);
     invalidateAll();
-    
-    // try {
-    //   const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
-    //   const response = await fetch(`https://dipspark-service.azurewebsites.net/Bookings/${bookingToDelete.id}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   });
-    //   if (!response.ok) {
-    //     console.error('API Error:', response.statusText);
-    //     return;
-    //   }
-    //   invalidateAll();
-    // } catch (error) {
-    //   console.error('Error:', error.message);
-    // }
   }
 
 </script>
@@ -75,14 +59,14 @@
       {/each}
       {#if haveBooked}
         <div class="book-button">
-          <Button style={{backgroundColor: "#3D405B", color: 'white', padding: '0 15px'}} on:buttonClick={deleteBooking}>
+          <Button style={{...styles.button.primary, padding: '0 15px'}} on:buttonClick={deleteBooking}>
             {isDefaultUser ? 'Fjern kansellering' : 'Fjern reservasjon'}
           </Button>
         </div>
       {/if}
       {#if !haveBooked && spotsLeft > 0}
         <div class="book-button">
-          <Button style={{backgroundColor: "#3D405B", color: 'white', padding: '0 15px'}} on:buttonClick={bookDay}>
+          <Button style={{...styles.button.primary, padding: '0 15px'}} on:buttonClick={bookDay}>
             Book
           </Button>
         </div>

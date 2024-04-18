@@ -1,6 +1,7 @@
 <script>
   import Button from "$lib/components/Button.svelte";
   import { GetUsers, GetUser, CreateUser } from '$lib/Api'
+  import styles from '$lib/Styles'
 
   let Username = '';
   let SignupName = '';
@@ -71,7 +72,7 @@
     <input type="text" id="SignupNameInput" bind:value={SignupName} />
 
     <div class="button" on:click={SignUpUser} on:keydown={() => {}}> 
-      <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
+      <Button style={styles.button.primary}>
         Registrer deg
       </Button>
     </div>
@@ -80,14 +81,14 @@
     </div>
   {:else}
     <div class="button" on:click={LoginUser} on:keydown={() => {}}> 
-      <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
+      <Button style={styles.button.primary}>
         Logg inn
       </Button>
       <p style="text-align: center;">eller</p>
     </div>
 
     <div class="button" on:click={OnCreateUser} on:keydown={() => {}}> 
-      <Button style={{backgroundColor: '#3D405B', color: 'white'}}>
+      <Button style={styles.button.primary}>
         Opprett ny bruker
       </Button>
     </div>
@@ -109,7 +110,7 @@
 
   label {
     display: block;
-    color: #333;
+    color: var(--neutral-70);
     margin-bottom: 5px;
   }
 
@@ -119,8 +120,8 @@
     min-height: 53px;
     flex-shrink: 0;
     border-radius: 2px;
-    border: 2px solid #CCC;
-    background: #F4F1DE; 
+    border: 2px solid var(--neutral-40);
+    background: var(--neutral-10); 
     margin-bottom: 20px;
     padding: 0 10px;
     box-sizing: border-box;
@@ -149,7 +150,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    color: #333;
+    color: var(--neutral-70);
 
     &:hover {
       color: black;

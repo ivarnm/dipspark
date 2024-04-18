@@ -1,5 +1,6 @@
 <script>
   import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
+  import styles from '$lib/Styles'
   import BookingDay from "$lib/helpers/BookingDay"
 	import BookedDate from '$lib/components/BookedDate.svelte';
 
@@ -7,7 +8,7 @@
     return bookingDay.bookings.find(booking => booking.userId == $user.id);
   }
 
-  $: styles = $bookingDays.map((day, i) => {
+  $: dateStyles = $bookingDays.map((day, i) => {
     return {
       ...getBackgroundColors(day),
       color: getColor(day, i)
@@ -16,22 +17,19 @@
 
   $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
 
-
   $: getBackgroundColors = (bookingDay) => {
     if (haveBookedDay(bookingDay)) {
-      return {
-        backgroundColor: "#81B29A",
-      }
+      return styles.button.secondary;
     }
     return {
-      backgroundColor: "#D9D9D9",
-      expandedColor: "#F2CC8F"
+      ...styles.button.neutral,
+      expandedColor: "--tertiary-40"
     }
   }
 
   $: getColor = (bookingDay, index) => {
-    if (!spotsLeft[index] && !haveBookedDay(bookingDay)) return '#666';
-    return 'black';
+    if (!spotsLeft[index] && !haveBookedDay(bookingDay)) return '--neutral-60';
+    return '--neutral-100';
   }
 </script>
 
@@ -40,7 +38,7 @@
 
 	{#each $bookingDays.slice(0, 6) as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
-      <BookedDate {bookingDay} style={styles[i]} />
+      <BookedDate {bookingDay} style={dateStyles[i]} />
     </div>
 	{/each}
 </div>

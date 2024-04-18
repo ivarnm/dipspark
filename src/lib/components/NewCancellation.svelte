@@ -81,17 +81,17 @@
     font-size: 20px;
     min-height: 53px;
     cursor: pointer;
-    background-color: #3D405B;
+    background-color: var(--primary-70);
     border: none;
     padding: 0 10px;
     color: white;
 
     &:active {
-      background-color: #292b3c;
+      background-color: var(--primary-80);
     }
 
     &:disabled {
-      background-color: #777ba2;
+      background-color: var(--primary-60);
       cursor: pointer;
     }
   }

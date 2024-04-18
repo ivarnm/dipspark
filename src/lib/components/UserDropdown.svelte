@@ -14,9 +14,9 @@
   }
 
   const style = {
-    backgroundColor: '#F4F1DE',
+    backgroundColor: '--neutral-10',
     padding: '5px 22px',
-    border: '1px solid #3D405B'
+    border: '1px solid var(--primary-70)'
   }
 
   const expandedStyle = {

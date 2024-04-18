@@ -1,3 +1,31 @@
+:root {
+  --netural-0: white;
+  --neutral-10: #f4f1de;
+  --neutral-30: #d9d9d9;
+  --neutral-40: #b7b7b7;
+  --neutral-60: #666666;
+  --neutral-70: #333333;
+  --neutral-100: black;
+  
+  --primary-60: #777ba2;
+  --primary-70: #3D405B;
+  --primary-80: #303349;
+  
+  --secondary-70: #81B29A;
+  --secondary-80: #709f88;
+  
+  --tertiary-40: #f2cc8f;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --primary-70: #ffa500;
+    --primary-80: #e69601; */
+
+  }
+}
+
 html { 
   font-family: 'Inter', sans-serif; 
 }
@@ -8,14 +36,14 @@ html {
 }
 
 body {
-  background: #F4F1DE;
+  background: var(--neutral-10);
   padding: 0;
   margin: 0 auto;
   max-width: 600px;
 }
 
 h1,h2,h3,h4,a,p,li {
-  color: #333333;
+  color: var(--neutral-70);
   font-weight: normal;
 
 }

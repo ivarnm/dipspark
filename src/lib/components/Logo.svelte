@@ -7,7 +7,7 @@
     padding: 0;
     font-size: 40px;
     font-weight: 700;
-    color: #3D405B;
+    color: var(--neutral-70);
     text-decoration: none;
   }
 </style>

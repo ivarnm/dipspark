@@ -1,6 +1,5 @@
 <script>
 	import { css } from '@emotion/css';
-  import { darken } from 'polished';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
@@ -11,16 +10,17 @@
 
 	export let style = {};
 
-  $: backgroundColor = style.backgroundColor ? style.backgroundColor : '#D9D9D9';
+  $: backgroundColor = style.backgroundColor ? style.backgroundColor : '--neutral-30';
+  $: hoverColor = style.hoverColor ? style.hoverColor : '--neutral-30';
 	$: button = css`
-		background-color: ${backgroundColor};
+		background-color: var(${backgroundColor});
     border-radius: ${style.borderRadius ? style.borderRadius : '0'};
     padding: ${style.padding ? style.padding : '0 10px'};
-    color: ${style.color ? style.color : 'black'};
+    color: var(${style.color ? style.color : '--neutral-70'});
     border: ${style.border ? style.border : 'none'};
 
     &:active {
-      background-color: ${darken(0.1, backgroundColor)};
+      background-color: var(${hoverColor});
     }
 	`;
 

@@ -38,13 +38,15 @@
 
 
 <div class="container">
-  <div class="button" on:click={toggleExpanded} on:keydown={() => {}}>
+  <div class="button" on:click={toggleExpanded} on:keydown={() => {}} aria-expanded={expanded}>
     <Button style={buttonStyle} on:buttonClick={handleClick}>
       <slot name="button" />
     </Button>
   </div>
   <div class="{expandedClasses} {expandedExtra}">
-    <slot name="expanded" />
+    {#if expanded}
+      <slot name="expanded" />
+    {/if}
   </div>
 </div>
 
@@ -61,7 +63,7 @@
     transition: 0.3s ease;
     width: 100%;
     box-sizing: border-box;
-    background-color: #D9D9D9;
+    background-color: var(--neutral-30);
   }
 
   .expanded.visible {
