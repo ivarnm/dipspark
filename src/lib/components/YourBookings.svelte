@@ -32,4 +32,8 @@
 		margin: 0;
 		padding: 0;
 	}
+
+	p {
+		color: var(--neutral-70);
+	}
 </style>
