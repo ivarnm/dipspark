@@ -9,28 +9,20 @@
   }
 
   $: dateStyles = $bookingDays.map((day, i) => {
-    return {
-      ...getBackgroundColors(day),
-      color: getColor(day, i)
-    }
-  })
-
-  $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
-
-  $: getBackgroundColors = (bookingDay) => {
-    if (haveBookedDay(bookingDay)) {
+    const fullyBooked = !spotsLeft[i] && !haveBookedDay(day);
+    if (haveBookedDay(day)) {
       return styles.button.secondary;
     }
     return {
       ...styles.button.neutral,
-      expandedColor: "--tertiary-40"
+      expandedBackgroundColor: "--primary-70",
+      expandedHoverColor: "--primary-80",
+      expandedColor: fullyBooked ? "--neutral-30" : "--netural-0",
+      color: fullyBooked ? "--neutral-60" : "--neutral-100"
     }
-  }
+  })
 
-  $: getColor = (bookingDay, index) => {
-    if (!spotsLeft[index] && !haveBookedDay(bookingDay)) return '--neutral-60';
-    return '--neutral-100';
-  }
+  $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
 </script>
 
 <div class="container">

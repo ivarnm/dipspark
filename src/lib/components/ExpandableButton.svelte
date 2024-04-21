@@ -20,26 +20,29 @@
     else {
       expandedClasses = 'expanded'
     }
+    dispatch('buttonClick', expanded);
   }
 
   $: buttonStyle = {
     ...style,
-    backgroundColor: expanded && !!style.expandedColor ? style.expandedColor : style.backgroundColor
+    backgroundColor: expanded && !!style.expandedBackgroundColor ? style.expandedBackgroundColor : style.backgroundColor,
+    color: expanded && !!style.expandedColor ? style.expandedColor : style.color,
+    hoverColor: expanded && !!style.expandedHoverColor ? style.expandedHoverColor : style.hoverColor
   }
 
   $: expandedExtra = css`
     position: ${expandedStyle.position ? expandedStyle.position : 'static'};
 	`;
 
-  const handleClick = () => {
-    dispatch('buttonClick', expanded);
-  };
+  $: containerStyle = css`
+    box-shadow: ${expanded ? 'none' : '0px 4px 4px 0px rgba(0, 0, 0, 0.2)'};
+	`;
 </script>
 
 
-<div class="container">
+<div class="container {containerStyle}">
   <div class="button" on:click={toggleExpanded} on:keydown={() => {}} aria-expanded={expanded}>
-    <Button style={buttonStyle} on:buttonClick={handleClick}>
+    <Button style={buttonStyle}>
       <slot name="button" />
     </Button>
   </div>
@@ -54,7 +57,7 @@
   .container {
     position: relative;
   }
-
+  
   .expanded {
     font-size: 18px;
     height: 0;
@@ -69,5 +72,6 @@
   .expanded.visible {
     height: auto;
     padding: 13px 15px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
   }
 </style>

@@ -30,11 +30,6 @@
     return defaultParkingSpotUsers.includes(booking.userId);
   }
 
-  $: p = css`
-    color: var(${style.color ? style.color : '--netutral-100'});
-    border-color: var(${style.color ? style.color : '--netutral-100'});
-	`;
-
   const bookDay = async () => {
     await BookDay(fetch, $user.id, bookingDay.date);
     invalidateAll();
@@ -50,8 +45,8 @@
 <div class="container">
   <ExpandableButton {style} on:buttonClick={handleClick}>
     <div slot="button" class="booked-date">
-      <p class="{p} date">{formattedDate ? formattedDate : "Ugyldig dato"}</p>
-      <p class="{p} free-spots">{spotsLeft}</p>
+      <p class="date">{formattedDate ? formattedDate : "Ugyldig dato"}</p>
+      <p class="free-spots">{spotsLeft}</p>
     </div>
     <div slot="expanded">
       {#each bookingDay.bookings as booking (booking.id)}
