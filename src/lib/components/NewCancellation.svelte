@@ -64,6 +64,10 @@
 		margin: 10px 0;
 	}
 
+  .bookings {
+    color: var(--neutral-70);
+  }
+
 	h2 {
 		font-size: 20px;
 		font-weight: 700;
@@ -84,15 +88,16 @@
     background-color: var(--primary-70);
     border: none;
     padding: 0 10px;
-    color: white;
+    color: var(--neutral-0);
 
     &:active {
       background-color: var(--primary-80);
     }
 
     &:disabled {
-      background-color: var(--primary-60);
-      cursor: pointer;
+      background-color: var(--neutral-40);
+      color: var(--neutral-70);
+      cursor: default;
     }
   }
 

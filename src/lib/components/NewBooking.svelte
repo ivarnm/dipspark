@@ -17,7 +17,7 @@
       ...styles.button.neutral,
       expandedBackgroundColor: "--primary-70",
       expandedHoverColor: "--primary-80",
-      expandedColor: fullyBooked ? "--neutral-30" : "--netural-0",
+      expandedColor: fullyBooked ? "--neutral-30" : "--neutral-0",
       color: fullyBooked ? "--neutral-60" : "--neutral-100"
     }
   })

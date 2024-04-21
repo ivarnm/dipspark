@@ -125,6 +125,16 @@
     margin-bottom: 20px;
     padding: 0 10px;
     box-sizing: border-box;
+    color: var(--neutral-100);
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px var(--neutral-10) inset;
+    -webkit-text-fill-color: var(--neutral-100);
+  }
+
+  p {
+    color: var(--neutral-70);
   }
 
   .button {
@@ -133,7 +143,7 @@
   }
 
   .error {
-    color: red;
+    color: var(--error);
     margin-top: 10px;
   }
 
@@ -153,7 +163,7 @@
     color: var(--neutral-70);
 
     &:hover {
-      color: black;
+      color: var(--neutral-100);
     }
   }
   

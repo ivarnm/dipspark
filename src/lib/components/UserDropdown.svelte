@@ -16,7 +16,7 @@
   const style = {
     backgroundColor: '--neutral-10',
     padding: '5px 22px',
-    border: '1px solid var(--primary-70)'
+    border: '1px solid var(--neutral-70)'
   }
 
   const expandedStyle = {

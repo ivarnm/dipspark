@@ -50,7 +50,7 @@
     </div>
     <div slot="expanded">
       {#each bookingDay.bookings as booking (booking.id)}
-        <p style="text-decoration: {isCancellation(booking) ? 'line-through' : 'none'};">{booking.userName}</p>
+        <p class="name" style="text-decoration: {isCancellation(booking) ? 'line-through' : 'none'};">{booking.userName}</p>
       {/each}
       {#if haveBooked}
         <div class="book-button">
@@ -85,6 +85,10 @@
     font-size: 20px;
     margin: 0;
     padding: 4px 0;
+  }
+  
+  .name {
+    color: var(--neutral-100); 
   }
 
   .date {

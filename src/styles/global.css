@@ -1,5 +1,5 @@
 :root {
-  --netural-0: white;
+  --neutral-0: white;
   --neutral-10: #fffcf1;
   --neutral-30: #d2d2d2;
   --neutral-40: #b7b7b7;
@@ -13,6 +13,30 @@
   
   --secondary-70: #81B29A;
   --secondary-80: #709f88;
+
+  --error: #c10000;
+  --black: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --neutral-0: black;
+    --neutral-10: #1a1a1a;
+    --neutral-30: #3d3d3d;
+    --neutral-40: #595959;
+    --neutral-60: #999999;
+    --neutral-70: #cccccc;
+    --neutral-100: white;
+  
+    --primary-60: #979ec7;
+    --primary-70: #a7aed6;
+    --primary-80: #b8bfe9;
+  
+    --secondary-70: #79BEA5;
+    --secondary-80: #89cfb5;
+
+    --error: #f25252;
+  }
 }
 
 html { 
@@ -51,25 +75,21 @@ h1,h2,h3,h4,a,li {
 }
 
 input[type="checkbox"] {
-  /* Add if not using autoprefixer */
   -webkit-appearance: none;
-  /* Remove most all native input styles */
   appearance: none;
-  /* For iOS < 15 */
   background-color: var(--form-background);
-  /* Not removed via appearance */
   margin: 0;
 
   font: inherit;
   color: currentColor;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
-
   display: grid;
   place-content: center;
+  cursor: pointer;
   
   &::before {
     content: "";
@@ -79,7 +99,7 @@ input[type="checkbox"] {
     transform: scale(0);
     transform-origin: bottom left;
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em black;
+    box-shadow: inset 1em 1em currentColor;
     /* Windows High Contrast Mode */
     background-color: CanvasText;
   }
