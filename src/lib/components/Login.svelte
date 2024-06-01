@@ -3,6 +3,8 @@
   import { GetUsers, GetUser, CreateUser } from '$lib/Api'
   import styles from '$lib/Styles'
 
+  const allowUserRegistration = false;
+
   let Username = '';
   let SignupName = '';
 
@@ -84,14 +86,17 @@
       <Button style={styles.button.primary}>
         Logg inn
       </Button>
-      <p style="text-align: center;">eller</p>
+      {#if allowUserRegistration}
+        <p style="text-align: center;">eller</p>
+      {/if}
     </div>
-
-    <div class="button" on:click={OnCreateUser} on:keydown={() => {}}> 
-      <Button style={styles.button.primary}>
-        Opprett ny bruker
-      </Button>
-    </div>
+    {#if allowUserRegistration}
+      <div class="button" on:click={OnCreateUser} on:keydown={() => {}}> 
+        <Button style={styles.button.primary}>
+          Opprett ny bruker
+        </Button>
+      </div>
+    {/if}
   {/if}
   {#if ErrorMessage !== null}
     <p class="error">{ErrorMessage}</p>
