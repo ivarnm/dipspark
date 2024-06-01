@@ -14,6 +14,8 @@
   export let bookingDay;
   export let style;
 
+  let isProcessing = false;
+
   const dispatch = createEventDispatcher();
 
   $: formattedDate = DateFormat.localeString(bookingDay.date);
@@ -31,14 +33,20 @@
   }
 
   const bookDay = async () => {
+    if (isProcessing) return; 
+    isProcessing = true;
     await BookDay(fetch, $user.id, bookingDay.date);
     invalidateAll();
+    isProcessing = false;
   }
 
   const deleteBooking = async () => {
+    if (isProcessing) return; 
+    isProcessing = true;
     const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
     await DeleteBooking(fetch, bookingToDelete.id);
     invalidateAll();
+    isProcessing = false;
   }
 
 </script>
