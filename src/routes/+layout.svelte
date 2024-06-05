@@ -9,10 +9,13 @@
 
 	import { page } from "$app/stores"
 
-	$: path = $page.url.pathname;
-
 	let isLoggedIn = false;
 	let loggedInUser = false;
+
+	const anonymousPaths = ['/info'];
+	$: path = $page.url.pathname;
+	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
+	$: isAnonymousPath = anonymousPaths.includes(path);
 
 	onMount(() => {
 		loggedInUser = localStorage.getItem("loggedInUser");
@@ -24,19 +27,29 @@
 		
     });
 
-	if (loggedInUser) {
-    isLoggedIn = true;
-  }
+		if (loggedInUser) {
+			isLoggedIn = true;
+		}
 
 </script>
 
+<svelte:head>
+    <title>{title}</title>
+</svelte:head>
 <div>
 	
 	<header>
-		<div class="user">
-			{#if isLoggedIn}
-				<UserDropdown />
-			{/if}
+		<div class="navbar">
+			<div class="links">
+				{#if path !== '/info'}
+					<a href="/info">Info</a>
+				{/if}
+			</div>
+			<div class="user">
+				{#if isLoggedIn}
+					<UserDropdown />
+				{/if}
+			</div>
 		</div>
 
 		<div class="logo">
@@ -44,7 +57,7 @@
 		</div>
 	</header>
 	<main>
-		{#if isLoggedIn}
+		{#if isLoggedIn || isAnonymousPath}
 			<slot />	
 		{:else}
 		 <Login/>
@@ -60,8 +73,19 @@
 		flex-direction: column;
 	}
 
-	.user {
+	.navbar {
+		display: flex;
+		justify-content: space-between;
 		margin: 20px 30px;
+	}
+
+	.links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.user {
 		align-self: flex-end;
 	}
 
