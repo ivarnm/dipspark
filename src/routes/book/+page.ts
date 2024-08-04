@@ -1,7 +1,7 @@
 import { GetBookingDays, GetAllParkingSpots } from '../../lib/Api';
+import type { PageLoad } from '../$types';
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ fetch }) {
+export const load: PageLoad = async ({ fetch }) => {
   const bookingDays = await GetBookingDays(fetch);
   const parkingSpots = await GetAllParkingSpots(fetch);
 

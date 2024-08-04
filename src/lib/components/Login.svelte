@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Button from "$lib/components/Button.svelte";
   import { GetUsers, GetUser, CreateUser } from '$lib/Api'
   import styles from '$lib/Styles'
@@ -9,7 +9,7 @@
   let SignupName = '';
 
   let RegisterUserClicked = false;
-  let ErrorMessage = null;
+  let ErrorMessage: string | null = null;
 
   function OnCreateUser() {
     RegisterUserClicked = true;
@@ -35,7 +35,7 @@
         return;
       }
       localStorage.setItem('loggedInUser', JSON.stringify(user));
-      location.reload(true);
+      location.reload();
     } 
     catch (error) {
       ErrorMessage = "Det skjedde en feil, prøv igjen senere"
@@ -73,7 +73,7 @@
     <label class="label" for="myInput">Visningsnavn</label>
     <input type="text" id="SignupNameInput" bind:value={SignupName} />
 
-    <div class="button" on:click={SignUpUser} on:keydown={() => {}}> 
+    <div class="button" role="button" tabindex="0" on:click={SignUpUser} on:keydown={() => {}}> 
       <Button style={styles.button.primary}>
         Registrer deg
       </Button>
@@ -82,7 +82,7 @@
       <button on:click={OnBack} class="back-button">Tilbake</button>
     </div>
   {:else}
-    <div class="button" on:click={LoginUser} on:keydown={() => {}}> 
+    <div class="button" role="button" tabindex="0" on:click={LoginUser} on:keydown={() => {}}> 
       <Button style={styles.button.primary}>
         Logg inn
       </Button>
@@ -91,7 +91,7 @@
       {/if}
     </div>
     {#if allowUserRegistration}
-      <div class="button" on:click={OnCreateUser} on:keydown={() => {}}> 
+      <div class="button" role="button" tabindex="0" on:click={OnCreateUser} on:keydown={() => {}}> 
         <Button style={styles.button.primary}>
           Opprett ny bruker
         </Button>

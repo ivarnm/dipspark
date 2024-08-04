@@ -1,20 +1,19 @@
 import { error } from '@sveltejs/kit';
 import DateFormat from '$lib/helpers/DateFormat';
+import type { BookingDay, ParkingSpot, User } from '$lib/model/models';
 
 const server = "https://dipspark-service.azurewebsites.net";
 
-export async function GetBookingDays(fetch) {
+type FetchFunction = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+
+export async function GetBookingDays(fetch: FetchFunction): Promise<BookingDay[]> {
   try {
     const dateRange = DateFormat.getDateRange();
     const res = await fetch(`${server}/BookingsByDateRange?startdate=${dateRange[0]}&enddate=${dateRange[1]}`);
-    let bookingDays = await res.json();
+    let bookingDays = (await res.json()) as BookingDay[];
+    
     bookingDays = DateFormat.fillMissingDays(dateRange, bookingDays);
-
-    // console.log(dateRange);
-    // console.log(bookingDays);
-
     return bookingDays;
-
   } 
   catch (ex) {
     console.log(ex);
@@ -24,7 +23,7 @@ export async function GetBookingDays(fetch) {
   }
 }
 
-export async function GetAllParkingSpots(fetch) {
+export async function GetAllParkingSpots(fetch: FetchFunction): Promise<ParkingSpot[]> {
   try {
     const res = await fetch(`${server}/Parkingspots`);
     const parkingspots = await res.json()
@@ -45,7 +44,7 @@ export async function GetAllParkingSpots(fetch) {
  * @param {number} userId 
  * @param {string} parkingDate Date to book (format: yyyy-mm-dd)
  */
-export async function BookDay(fetch, userId, parkingDate) {
+export async function BookDay(fetch: FetchFunction, userId: number, parkingDate: string) {
   try {
     const booking = {
       "userId": userId,
@@ -64,12 +63,12 @@ export async function BookDay(fetch, userId, parkingDate) {
       return;
     }
   } 
-  catch (error) {
-    console.error('Error:', error.message);
+  catch (ex) {
+    console.error('Error:', (ex as Error).message);
   }
 }
 
-export async function DeleteBooking(fetch, bookingId) {
+export async function DeleteBooking(fetch: FetchFunction, bookingId: number) {
   try {
     const response = await fetch(`${server}/Bookings/${bookingId}`, {
       method: 'DELETE',
@@ -82,40 +81,40 @@ export async function DeleteBooking(fetch, bookingId) {
       return;
     }
   } 
-  catch (error) {
-    console.error('Error:', error.message);
+  catch (ex) {
+    console.error('Error:', (ex as Error)?.message);
   }
 }
 
-export async function GetUsers(fetch) {
+export async function GetUsers(fetch: FetchFunction): Promise<User[]> {
   try {
     const res = await fetch(`${server}/AllUsers`);
     const users = await res.json();
     return users;
   } 
   catch (ex) {
-    console.log(error)
+    console.log(ex)
     throw error(500, {
       message: 'Noe gikk galt'
     });
   }
 }
 
-export async function GetUser(fetch, username) {
+export async function GetUser(fetch: FetchFunction, username: string): Promise<User[]> {
   try {
     const res = await fetch(`${server}/Users?username=${username.toLowerCase()}`);
     const user = await res.json();
     return user;
   } 
   catch (ex) {
-    console.log(error)
+    console.log(ex)
     throw error(500, {
       message: 'Noe gikk galt'
     });
   }
 }
 
-export async function CreateUser(fetch, name, username) {
+export async function CreateUser(fetch: FetchFunction, name: string, username: string) {
   try {
     let user = {
       "name": name,
@@ -136,8 +135,8 @@ export async function CreateUser(fetch, name, username) {
       });
     }
   }
-  catch (error) {
-    console.log(error)
+  catch (ex) {
+    console.log(ex)
     throw error(500, {
       message: 'Noe gikk galt'
     });

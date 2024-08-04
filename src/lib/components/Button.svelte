@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { css } from '@emotion/css';
   import { createEventDispatcher } from 'svelte';
 
@@ -8,7 +8,7 @@
     dispatch('buttonClick');
   };
 
-	export let style = {};
+	export let style: any = {};
 
   $: backgroundColor = style.backgroundColor ? style.backgroundColor : '--neutral-30';
   $: hoverColor = style.hoverColor ? style.hoverColor : '--neutral-30';

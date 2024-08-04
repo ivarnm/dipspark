@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import {onMount} from "svelte";
 
   let parkIdLink = '';
 
   function detectPlatform() {
-    const userAgent = navigator.userAgent || window.opera;
+    const userAgent = navigator.userAgent || (window as any).opera;
 
     if (/android/i.test(userAgent)) {
       parkIdLink = 'https://play.google.com/store/apps/details?id=com.profectum.parkidmobile';
-    } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    } else if (/iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream) {
       parkIdLink = 'https://apps.apple.com/no/app/parkid/id1146754106';
     } else {
       parkIdLink = 'https://leieparkering.no/MobileApp/Default.aspx';

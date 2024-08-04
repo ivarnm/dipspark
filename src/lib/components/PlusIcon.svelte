@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import styles from '$lib/Styles'
   import Button from "$lib/components/Button.svelte";
 

@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { css } from '@emotion/css';
   import { invalidateAll } from '$app/navigation';
-  import { user, parkingSpots } from "$lib/stores/stores.js"
+  import { user, parkingSpots } from "$lib/stores/stores"
   import { BookDay, DeleteBooking } from '$lib/Api'
   import styles from '$lib/Styles'
   import DateFormat from "$lib/helpers/DateFormat"
-  import BookingDay from "$lib/helpers/BookingDay"
+  import BookingUtils from "$lib/helpers/BookingUtils"
   import User from '$lib/helpers/User'
   import Button from '$lib/components/Button.svelte';
   import ExpandableButton from "$lib/components/ExpandableButton.svelte";
+	import type { Booking, BookingDay } from '$lib/model/models';
 
-  export let bookingDay;
+  export let bookingDay: BookingDay;
   export let style;
 
   let isProcessing = false;
@@ -19,7 +19,7 @@
   const dispatch = createEventDispatcher();
 
   $: formattedDate = DateFormat.localeString(bookingDay.date);
-  $: spotsLeft = BookingDay.parkingSpotsLeft(bookingDay, $parkingSpots);
+  $: spotsLeft = BookingUtils.parkingSpotsLeft(bookingDay, $parkingSpots);
   $: haveBooked = bookingDay.bookings.find(booking => booking.userId == $user.id);
   $: isDefaultUser = User.isDefaultUser($user, $parkingSpots)
 
@@ -27,7 +27,7 @@
     dispatch('buttonClick');
   };
 
-  const isCancellation = (booking) => {
+  const isCancellation = (booking: Booking) => {
     const defaultParkingSpotUsers = $parkingSpots.map(p => p.defaultUserId).filter(id => id > 0);
     return defaultParkingSpotUsers.includes(booking.userId);
   }
@@ -44,6 +44,10 @@
     if (isProcessing) return; 
     isProcessing = true;
     const bookingToDelete = bookingDay.bookings.find(booking => booking.userId == $user.id);
+    if (!bookingToDelete) {
+      isProcessing = false;
+      return;
+    };
     await DeleteBooking(fetch, bookingToDelete.id);
     invalidateAll();
     isProcessing = false;

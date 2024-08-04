@@ -1,5 +1,5 @@
-<script>
-	import { user } from '$lib/stores/stores.js';
+<script lang="ts">
+	import { user } from '$lib/stores/stores';
   import ExpandableButton from '$lib/components/ExpandableButton.svelte';
 
   let expanded = false;

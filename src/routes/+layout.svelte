@@ -1,16 +1,17 @@
-<script>
+<script lang="ts">
 	import "../styles/fonts.css"
 	import "../styles/global.css"
-	import { user } from '$lib/stores/stores.js'
+	import { user } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
 	import {onMount} from "svelte";
+	import type { User } from "$lib/model/models";
 
 	import { page } from "$app/stores"
 
 	let isLoggedIn = false;
-	let loggedInUser = false;
+	let loggedInUser: string | null;
 
 	const anonymousPaths = ['/info'];
 	$: path = $page.url.pathname;
@@ -21,15 +22,10 @@
 		loggedInUser = localStorage.getItem("loggedInUser");
 		
 		if(loggedInUser){
-			$user = JSON.parse(loggedInUser)[0];
+			$user = JSON.parse(loggedInUser)[0] as User;
 			isLoggedIn = true;
 		}
-		
-    });
-
-		if (loggedInUser) {
-			isLoggedIn = true;
-		}
+	});
 
 </script>
 

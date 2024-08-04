@@ -1,16 +1,19 @@
-<script>
+<script lang="ts">
   import { invalidateAll } from '$app/navigation';
-  import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
+  import { bookingDays, parkingSpots, user } from '$lib/stores/stores'
   import { BookDay, DeleteBooking } from '$lib/Api'
   import DateFormat from '$lib/helpers/DateFormat'
+  import type { BookingDay } from '$lib/model/models'
+	import Error from '../../routes/+error.svelte';
 
-  const booked = bookingday => bookingday.bookings.find(b => b.userId == $user.id);
+  const booked = (bookingday: BookingDay) => bookingday.bookings.find(b => b.userId == $user.id);
 
-  let originalSelection = [];
-  let selection = [];
+  let originalSelection: string[] = [];
+  let selection: string[] = [];
 
   bookingDays.subscribe(value => {
     originalSelection = value.filter(b => booked(b)).map(b => b.date);
+    
     selection = originalSelection;
   })
 
@@ -26,14 +29,14 @@
     try {
       const addRequests = boookingsToAdd.map(date => BookDay(fetch, $user.id, date));
       const deleteRequests = bookingsToRemove.map(date => {
-        const bookingId = $bookingDays.find(day => day.date == date).bookings.find(b => b.userId == $user.id).id;
+        const bookingId = $bookingDays.find(day => day.date == date)!.bookings.find(b => b.userId == $user.id)!.id;
         return DeleteBooking(fetch, bookingId)
       })
       await Promise.all([...addRequests, ...deleteRequests])
       invalidateAll()
     } 
-    catch (error) {
-      console.error('Error:', error.message);
+    catch (ex) {
+      console.error('Error:', (ex as Error).message);
     }
   }
 </script>

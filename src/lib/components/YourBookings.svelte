@@ -1,5 +1,5 @@
-<script>
-	import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
+<script lang="ts">
+	import { bookingDays, parkingSpots, user } from '$lib/stores/stores'
 	import User from '$lib/helpers/User'
 	import styles from '$lib/Styles'
   import BookedDate from '$lib/components/BookedDate.svelte';
