@@ -1,13 +1,9 @@
 <script lang="ts">
+  import { SignOut } from "@auth/sveltekit/components"
 	import { user } from '$lib/stores/stores';
   import ExpandableButton from '$lib/components/ExpandableButton.svelte';
 
   let expanded = false;
-
-	const handleLogout = () => {
-		localStorage.removeItem("loggedInUser")
-		location.href = "/";
-	};
 
   const handleClick = () => {
     expanded = !expanded
@@ -37,7 +33,9 @@
       {/if}
     </div>
     <div slot="expanded" class="expanded">
-      <button on:click={handleLogout}>Logg ut</button>
+      <SignOut>
+        <div slot="submitButton" class="signOut">Logg ut</div>
+      </SignOut>
     </div>
   </ExpandableButton>
 </div>
@@ -63,7 +61,7 @@
     transition: transform 0.3s ease;
   }
 
-  button {
+  .signOut {
     margin: 0;
     padding: 5px 10px;
     font-size: 20px;

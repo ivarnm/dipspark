@@ -7,4 +7,4 @@ export let parkingSpots = writable<ParkingSpot[]>([]);
 
 export let bookingDays = writable<BookingDay[]>([]);
 
-export let user = writable<User>();
+export let user = writable<User | null>(null);

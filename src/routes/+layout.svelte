@@ -5,28 +5,18 @@
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
-	import {onMount} from "svelte";
-	import type { User } from "$lib/model/models";
 
 	import { page } from "$app/stores"
 
-	let isLoggedIn = false;
-	let loggedInUser: string | null;
+	export let data;
+
+	user.set(data.user);
+	$: isLoggedIn = !!data?.user;
 
 	const anonymousPaths = ['/info'];
 	$: path = $page.url.pathname;
 	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
 	$: isAnonymousPath = anonymousPaths.includes(path);
-
-	onMount(() => {
-		loggedInUser = localStorage.getItem("loggedInUser");
-		
-		if(loggedInUser){
-			$user = JSON.parse(loggedInUser)[0] as User;
-			isLoggedIn = true;
-		}
-	});
-
 </script>
 
 <svelte:head>
