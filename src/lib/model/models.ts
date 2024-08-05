@@ -14,12 +14,13 @@ export type ParkingSpot = {
 }
 
 export type Booking = {
-  id: number,
-  createdDate: Date,
-  parkingDate: Date,
-  parkingId: number,
-  userId: number,
-  userName: string,
+  id: string,
+  date: Date,
+  isCancellationBooking: boolean,
+  user: {
+    id: string,
+    name: string,
+  }
 }
 
 export type BookingDay = {
