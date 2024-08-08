@@ -67,14 +67,14 @@
       {/each}
       {#if haveBooked}
         <div class="book-button">
-          <Button style={{...styles.button.primary, padding: '0 15px'}} on:buttonClick={deleteBooking}>
-            {$user.hasPermanentParkingSpot ? 'Fjern kansellering' : 'Fjern reservasjon'}
+          <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={deleteBooking} loading={isProcessing}>
+            {haveBooked.isCancellationBooking ? 'Fjern kansellering' : 'Fjern reservasjon'}
           </Button>
         </div>
       {/if}
       {#if !haveBooked && spotsLeft > 0}
         <div class="book-button">
-          <Button style={{...styles.button.primary, padding: '0 15px'}} on:buttonClick={bookDay}>
+          <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={bookDay} loading={isProcessing}>
             Book
           </Button>
         </div>

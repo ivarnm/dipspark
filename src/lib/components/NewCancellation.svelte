@@ -4,11 +4,14 @@
   import DateFormat from '$lib/helpers/DateFormat'
   import type { BookingDay } from '$lib/model/models'
 	import Error from '../../routes/+error.svelte';
+	import Button from './Button.svelte';
+	import styles from '$lib/Styles';
 
   const booked = (bookingday: BookingDay) => bookingday.bookings.find(b => b.user.id == $user.id);
 
   let originalSelection: string[] = [];
   let selection: string[] = [];
+  let isProcessing = false;
 
   bookingDays.subscribe(value => {
     originalSelection = value.filter(b => booked(b)).map(b => b.date);
@@ -22,6 +25,8 @@
   }
 
   const submit = async () => {
+    if (isProcessing) return;
+    isProcessing = true;
     const boookingsToAdd = selection.filter(item => !originalSelection.includes(item));
     const bookingsToRemove = originalSelection.filter(item => !selection.includes(item));
 
@@ -36,6 +41,9 @@
     } 
     catch (ex) {
       console.error('Error:', (ex as Error).message);
+    }
+    finally {
+      isProcessing = false;
     }
   }
 </script>
@@ -54,7 +62,10 @@
     {/each}
   </div>
   <div class="submit">
-    <button disabled={isOriginalSelection()} on:click={submit}>Bekreft</button>
+    <Button disabled={isOriginalSelection()} loading={isProcessing} on:buttonClick={submit} 
+            style={{...styles.button.primary, disabledOpacity: 1, disabledBackgroundColor: '--neutral-40', disabledColor: '--neutral-70'}}>
+        Bekreft
+    </Button>
   </div>
 </div>
 
