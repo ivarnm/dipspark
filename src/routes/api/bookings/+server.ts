@@ -38,7 +38,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
   }
   
   var created = await db.booking.create({
-    data: bookingRequest
+    data: bookingRequest,
+    select: bookingSelect
   });
 
   return json(created, { status: 201 });
@@ -104,7 +105,7 @@ async function canBook(bookingRequest: BookingRequest, locals: App.Locals): Prom
     select: bookingSelect
   });
   const users = await db.user.findMany();
-  const parkingSpotsLeft = BookingUtils.parkingSpotsLeft2(existingBookings as Booking[], users as User[]);
+  const parkingSpotsLeft = BookingUtils.parkingSpotsLeft(existingBookings as Booking[], users as User[]);
   const requestingUserId = (await locals.auth())?.user?.id;
   
   if (parkingSpotsLeft <= 0) return false;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import "../styles/fonts.css"
 	import "../styles/global.css"
-	import { user } from '$lib/stores/stores'
+	import { bookingDays, user, users } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
@@ -10,7 +10,10 @@
 
 	export let data;
 
-	user.set(data.user);
+	if (data.users) users.set(data.users);
+	if (data.bookingDays) bookingDays.set(data.bookingDays);
+
+	if (data.user != null) user.set(data.user);
 	$: isLoggedIn = !!data?.user;
 
 	const anonymousPaths = ['/info'];

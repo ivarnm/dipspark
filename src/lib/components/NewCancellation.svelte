@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { invalidateAll } from '$app/navigation';
-  import { bookingDays, parkingSpots, user } from '$lib/stores/stores'
-  import { BookDay, DeleteBooking } from '$lib/Api'
+  import { bookingDays, user } from '$lib/stores/stores'
+  import { BookDay, DeleteBooking, GetBookingDays } from '$lib/Api'
   import DateFormat from '$lib/helpers/DateFormat'
   import type { BookingDay } from '$lib/model/models'
 	import Error from '../../routes/+error.svelte';
 
-  const booked = (bookingday: BookingDay) => bookingday.bookings.find(b => b.userId == $user.id);
+  const booked = (bookingday: BookingDay) => bookingday.bookings.find(b => b.user.id == $user.id);
 
   let originalSelection: string[] = [];
   let selection: string[] = [];
@@ -27,13 +26,13 @@
     const bookingsToRemove = originalSelection.filter(item => !selection.includes(item));
 
     try {
-      const addRequests = boookingsToAdd.map(date => BookDay(fetch, $user.id, date));
+      const addRequests = boookingsToAdd.map(date => BookDay(fetch, {userId: $user.id, date: date, isCancellationBooking: true}));
       const deleteRequests = bookingsToRemove.map(date => {
-        const bookingId = $bookingDays.find(day => day.date == date)!.bookings.find(b => b.userId == $user.id)!.id;
+        const bookingId = $bookingDays.find(day => day.date == date)!.bookings.find(b => b.user.id == $user.id)!.id;
         return DeleteBooking(fetch, bookingId)
       })
       await Promise.all([...addRequests, ...deleteRequests])
-      invalidateAll()
+      $bookingDays = await GetBookingDays(fetch);
     } 
     catch (ex) {
       console.error('Error:', (ex as Error).message);

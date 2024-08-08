@@ -24,7 +24,7 @@ export type BookingDay = {
 }
 
 export type BookingRequest = {
-  date: Date,
+  date: Date | string,
   isCancellationBooking: boolean,
   userId: string,
 }
