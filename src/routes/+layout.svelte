@@ -1,36 +1,25 @@
-<script>
+<script lang="ts">
 	import "../styles/fonts.css"
 	import "../styles/global.css"
-	import { user } from '$lib/stores/stores.js'
+	import { bookingDays, user, users } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
-	import {onMount} from "svelte";
 
 	import { page } from "$app/stores"
 
-	let isLoggedIn = false;
-	let loggedInUser = false;
+	export let data;
+
+	if (data.users) users.set(data.users);
+	if (data.bookingDays) bookingDays.set(data.bookingDays);
+
+	if (data.user != null) user.set(data.user);
+	$: isLoggedIn = !!data?.user;
 
 	const anonymousPaths = ['/info'];
 	$: path = $page.url.pathname;
 	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
 	$: isAnonymousPath = anonymousPaths.includes(path);
-
-	onMount(() => {
-		loggedInUser = localStorage.getItem("loggedInUser");
-		
-		if(loggedInUser){
-			$user = JSON.parse(loggedInUser)[0];
-			isLoggedIn = true;
-		}
-		
-    });
-
-		if (loggedInUser) {
-			isLoggedIn = true;
-		}
-
 </script>
 
 <svelte:head>

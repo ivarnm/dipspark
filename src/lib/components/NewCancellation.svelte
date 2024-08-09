@@ -1,16 +1,21 @@
-<script>
-  import { invalidateAll } from '$app/navigation';
-  import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
-  import { BookDay, DeleteBooking } from '$lib/Api'
+<script lang="ts">
+  import { bookingDays, user } from '$lib/stores/stores'
+  import { BookDay, DeleteBooking, GetBookingDays } from '$lib/Api'
   import DateFormat from '$lib/helpers/DateFormat'
+  import type { BookingDay } from '$lib/model/models'
+	import Error from '../../routes/+error.svelte';
+	import Button from './Button.svelte';
+	import styles from '$lib/Styles';
 
-  const booked = bookingday => bookingday.bookings.find(b => b.userId == $user.id);
+  const booked = (bookingday: BookingDay) => bookingday.bookings.find(b => b.user.id == $user.id);
 
-  let originalSelection = [];
-  let selection = [];
+  let originalSelection: string[] = [];
+  let selection: string[] = [];
+  let isProcessing = false;
 
   bookingDays.subscribe(value => {
     originalSelection = value.filter(b => booked(b)).map(b => b.date);
+    
     selection = originalSelection;
   })
 
@@ -20,20 +25,25 @@
   }
 
   const submit = async () => {
+    if (isProcessing) return;
+    isProcessing = true;
     const boookingsToAdd = selection.filter(item => !originalSelection.includes(item));
     const bookingsToRemove = originalSelection.filter(item => !selection.includes(item));
 
     try {
-      const addRequests = boookingsToAdd.map(date => BookDay(fetch, $user.id, date));
+      const addRequests = boookingsToAdd.map(date => BookDay(fetch, {userId: $user.id, date: date, isCancellationBooking: true}));
       const deleteRequests = bookingsToRemove.map(date => {
-        const bookingId = $bookingDays.find(day => day.date == date).bookings.find(b => b.userId == $user.id).id;
+        const bookingId = $bookingDays.find(day => day.date == date)!.bookings.find(b => b.user.id == $user.id)!.id;
         return DeleteBooking(fetch, bookingId)
       })
       await Promise.all([...addRequests, ...deleteRequests])
-      invalidateAll()
+      $bookingDays = await GetBookingDays(fetch);
     } 
-    catch (error) {
-      console.error('Error:', error.message);
+    catch (ex) {
+      console.error('Error:', (ex as Error).message);
+    }
+    finally {
+      isProcessing = false;
     }
   }
 </script>
@@ -52,7 +62,10 @@
     {/each}
   </div>
   <div class="submit">
-    <button disabled={isOriginalSelection()} on:click={submit}>Bekreft</button>
+    <Button disabled={isOriginalSelection()} loading={isProcessing} on:buttonClick={submit} 
+            style={{...styles.button.primary, disabledOpacity: 1, disabledBackgroundColor: '--neutral-40', disabledColor: '--neutral-70'}}>
+        Bekreft
+    </Button>
   </div>
 </div>
 

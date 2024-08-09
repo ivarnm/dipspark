@@ -1,11 +1,10 @@
-<script>
-	import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
-	import User from '$lib/helpers/User'
+<script lang="ts">
+	import { bookingDays, user } from '$lib/stores/stores'
 	import styles from '$lib/Styles'
   import BookedDate from '$lib/components/BookedDate.svelte';
 	
-  $: yourBookings = $bookingDays.filter(day => day.bookings.find(booking => booking.userId == $user?.id));
-	$: isDefaultUser = User.isDefaultUser($user, $parkingSpots)
+  $: yourBookings = $bookingDays.filter(day => day.bookings.find(booking => booking.user.id == $user?.id));
+	$: isDefaultUser = $user.hasPermanentParkingSpot;
 </script>
 
 <div class="container">

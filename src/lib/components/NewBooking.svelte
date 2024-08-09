@@ -1,11 +1,12 @@
-<script>
-  import { bookingDays, parkingSpots, user } from '$lib/stores/stores.js'
+<script lang="ts">
+  import { bookingDays, user, users } from '$lib/stores/stores'
   import styles from '$lib/Styles'
-  import BookingDay from "$lib/helpers/BookingDay"
+  import BookingUtils from "$lib/helpers/BookingUtils"
 	import BookedDate from '$lib/components/BookedDate.svelte';
+	import type { BookingDay } from '$lib/model/models';
 
-  const haveBookedDay = (bookingDay) => {
-    return bookingDay.bookings.find(booking => booking.userId == $user.id);
+  const haveBookedDay = (bookingDay: BookingDay) => {
+    return bookingDay.bookings.find(booking => booking.user.id == $user.id);
   }
 
   $: dateStyles = $bookingDays.map((day, i) => {
@@ -22,13 +23,13 @@
     }
   })
 
-  $: spotsLeft = $bookingDays.map(day => BookingDay.parkingSpotsLeft(day, $parkingSpots));
+  $: spotsLeft = $bookingDays.map(day => BookingUtils.parkingSpotsLeft(day.bookings, $users));
 </script>
 
 <div class="container">
 	<h2>Book parkering</h2>
 
-	{#each $bookingDays.slice(0, 6) as bookingDay, i (bookingDay.date)}
+	{#each $bookingDays as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
       <BookedDate {bookingDay} style={dateStyles[i]} />
     </div>

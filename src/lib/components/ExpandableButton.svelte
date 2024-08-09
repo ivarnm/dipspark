@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { css } from '@emotion/css';
   import { createEventDispatcher } from 'svelte';
   import Button from "$lib/components/Button.svelte";
@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
 
   export let style
-  export let expandedStyle = {}
+  export let expandedStyle: any = {}
 
   let expanded = false;
   
@@ -41,7 +41,7 @@
 
 
 <div class="container {containerStyle}">
-  <div class="button" on:click={toggleExpanded} on:keydown={() => {}} aria-expanded={expanded}>
+  <div class="button" role="button" tabindex="0"  on:click={toggleExpanded} on:keydown={() => {}} aria-expanded={expanded}>
     <Button style={buttonStyle}>
       <slot name="button" />
     </Button>

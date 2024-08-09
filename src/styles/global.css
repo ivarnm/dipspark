@@ -16,6 +16,9 @@
 
   --error: #c10000;
   --black: black;
+
+  --slack-bg: white;
+  --slack-border: 1px solid #ddd;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,11 +39,15 @@
     --secondary-80: #89cfb5;
 
     --error: #f25252;
+
+    --slack-bg: #4A154B;
+    --slack-border: 1px solid var(--slack-bg);
   }
 }
 
 html { 
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Inter', sans-serif;
+  height: 100%;
 }
 @supports (font-variation-settings: normal) {
   html { 
@@ -53,12 +60,29 @@ body {
   padding: 0;
   margin: 0 auto;
   max-width: 600px;
+  height: 100%;
 }
 
 h1,h2,h3,h4,a,li {
   color: var(--neutral-70);
   font-weight: normal;
 
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+pre {
+  background: var(--neutral-10);
+  color: var(--neutral-70);
+  padding: 1em;
+  border-radius: 0.5em;
+  overflow-x: auto;
 }
 
 
