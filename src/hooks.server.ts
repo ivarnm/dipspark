@@ -5,9 +5,11 @@ import type { Handle } from '@sveltejs/kit';
 
 
 const authorizationHandle: Handle = async ({ event, resolve }) => {
+  if (!event.url.pathname.startsWith('/api')) {
+    return await resolve(event);
+  }
   const auth = await event.locals.auth();
-  
-  if (!auth?.user && event.url.pathname.startsWith('/api')) {
+  if (!auth?.user) {
     return json({ error: 'Unauthorized' }, { status: 401 });
   }
 

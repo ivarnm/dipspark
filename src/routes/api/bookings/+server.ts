@@ -98,15 +98,18 @@ async function parseBookingRequest(request: Request): Promise<BookingRequest | n
 }
 
 async function canBook(bookingRequest: BookingRequest, locals: App.Locals): Promise<boolean> {
-  const existingBookings = await db.booking.findMany({
-    where: {
-      date: bookingRequest.date,
-    },
-    select: bookingSelect
-  });
-  const users = await db.user.findMany();
+  const [existingBookings, users, requestingUserId] = await Promise.all([
+    db.booking.findMany({
+      where: {
+        date: bookingRequest.date,
+      },
+      select: bookingSelect
+    }),
+    db.user.findMany(),
+    locals.auth().then(session => session?.user?.id)
+  ]);
+  
   const parkingSpotsLeft = BookingUtils.parkingSpotsLeft(existingBookings as Booking[], users as User[]);
-  const requestingUserId = (await locals.auth())?.user?.id;
   
   if (parkingSpotsLeft <= 0) return false;
   if (existingBookings.find(b => b.user.id === bookingRequest.userId)) return false;
