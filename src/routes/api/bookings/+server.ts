@@ -98,7 +98,7 @@ async function parseBookingRequest(request: Request): Promise<BookingRequest | n
 }
 
 async function canBook(bookingRequest: BookingRequest, locals: App.Locals): Promise<boolean> {
-  const [existingBookings, users, requestingUserId] = await Promise.all([
+  const [existingBookings, users, requestingUser] = await Promise.all([
     db.booking.findMany({
       where: {
         date: bookingRequest.date,
@@ -106,13 +106,14 @@ async function canBook(bookingRequest: BookingRequest, locals: App.Locals): Prom
       select: bookingSelect
     }),
     db.user.findMany(),
-    locals.auth().then(session => session?.user?.id)
+    locals.auth().then(session => session?.user as User)
   ]);
   
   const parkingSpotsLeft = BookingUtils.parkingSpotsLeft(existingBookings as Booking[], users as User[]);
   
-  if (parkingSpotsLeft <= 0) return false;
+  if (!requestingUser) return false;
+  if (parkingSpotsLeft <= 0 && !requestingUser.hasPermanentParkingSpot) return false;
   if (existingBookings.find(b => b.user.id === bookingRequest.userId)) return false;
-  if (requestingUserId !== bookingRequest.userId) return false;
+  if (requestingUser?.id !== bookingRequest.userId) return false;
   return true;
 }
