@@ -43,7 +43,6 @@
   --slack-border: 1px solid var(--slack-bg);
 }
 
-/* Warm Theme */
 .warm-theme {
   --neutral-0: #fff7e0;
   --neutral-10: #ffedcc;
@@ -59,14 +58,8 @@
 
   --secondary-70: #e59572;
   --secondary-80: #cf6448;
-
-  --error: #ff3b3b;
-
-  --slack-bg: #ffe1b3;
-  --slack-border: 1px solid var(--slack-bg);
 }
 
-/* Cool Theme */
 .cool-theme {
   --neutral-0: #f0faff;
   --neutral-10: #d6efff;
@@ -82,11 +75,26 @@
 
   --secondary-70: #5f9ea0;
   --secondary-80: #4682b4;
+}
 
-  --error: #ff4d4d;
+.halloween-theme {
+  --neutral-0: black;
+  --neutral-10: #1a1a1a;
+  --neutral-30: #3d3d3d;
+  --neutral-40: #595959;
+  --neutral-60: #999999;
+  --neutral-70: #cccccc;
+  --neutral-100: white;
 
-  --slack-bg: #003366;
-  --slack-border: 1px solid var(--slack-bg);
+  --primary-60: #f39c12;
+  --primary-70: #e67e22;
+  --primary-80: #d35400;
+
+  --secondary-70: #d267ff;
+  --secondary-80: #9b59b6;
+
+  --highlight-70: #2ecc71;
+  --highlight-80: #27ae60;
 }
 
 html { 
