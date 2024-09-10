@@ -17,7 +17,7 @@
 
 <style>
   .container {
-    position: fixed;
+    position: absolute;
     right: 30px;
     bottom: 20px;
   }
