@@ -4,7 +4,7 @@
   import BookedDate from '$lib/components/BookedDate.svelte';
 	
   $: yourBookings = $bookingDays.filter(day => day.bookings.find(booking => booking.user.id == $user?.id));
-	$: isDefaultUser = $user.hasPermanentParkingSpot;
+	$: isDefaultUser = $user?.hasPermanentParkingSpot ?? false;
 </script>
 
 <div class="container">
