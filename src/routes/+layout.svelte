@@ -31,6 +31,9 @@
 	<header>
 		<div class="navbar">
 			<div class="links">
+				{#if path !== '/'}
+					<a href="/">Hjem</a>
+				{/if}
 				{#if path !== '/info'}
 					<a href="/info">Info</a>
 				{/if}
@@ -79,6 +82,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		flex: 1;
+		gap: 10px;
 	}
 
 	.logo {
