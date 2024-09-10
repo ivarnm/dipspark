@@ -5,6 +5,7 @@
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
+	import ThemeSelector from "$lib/components/ThemeSelector.svelte";
 
 	import { page } from "$app/stores"
 
@@ -33,6 +34,9 @@
 				{#if path !== '/info'}
 					<a href="/info">Info</a>
 				{/if}
+			</div>
+			<div class="color">
+				<ThemeSelector />
 			</div>
 			<div class="user">
 				{#if isLoggedIn}
@@ -65,17 +69,16 @@
 	.navbar {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		margin: 20px 30px;
+		gap: 2px;
 	}
 
 	.links {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-	}
-
-	.user {
-		align-self: flex-end;
+		justify-content: flex-start;
+		flex: 1;
 	}
 
 	.logo {

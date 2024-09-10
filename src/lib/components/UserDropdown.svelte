@@ -1,75 +1,24 @@
 <script lang="ts">
-  import { SignOut } from "@auth/sveltekit/components"
+  import { signOut } from "@auth/sveltekit/client"
 	import { user } from '$lib/stores/stores';
-  import ExpandableButton from '$lib/components/ExpandableButton.svelte';
-
-  let expanded = false;
-
-  const handleClick = () => {
-    expanded = !expanded
-  }
-
-  const style = {
-    backgroundColor: '--neutral-10',
-    padding: '5px 22px',
-    border: '1px solid var(--neutral-70)'
-  }
-
-  const expandedStyle = {
-    position: 'absolute'
-  }
+	import DropdownMenu from "$lib/components/DropdownMenu.svelte";
 </script>
 
-<div class="container">
-  <ExpandableButton {style} {expandedStyle} on:buttonClick={handleClick}>
-    <div slot="button" class="name">
-      {#if $user}
-        <span>{$user.name}</span>
-        <div class="arrow"  style="transform: {expanded ? 'rotateZ(-180deg)' : 'rotateZ(0deg'}">
-          <svg width="25" height="14" viewBox="0 0 25 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 1.01037C25 0.751735 24.905 0.493098 24.7153 0.295945C24.3358 -0.0986485 23.72 -0.0986485 23.3405 0.295945L12.4999 11.5608L1.65959 0.295945C1.27987 -0.0986485 0.664309 -0.0986485 0.284585 0.295945C-0.0948616 0.690539 -0.0948616 1.3302 0.284585 1.7248L11.8124 13.7041C12.1919 14.0986 12.8077 14.0986 13.1872 13.7041L24.715 1.7248C24.905 1.52764 25 1.26901 25 1.01037Z" fill="var(--neutral-70)"/>
-          </svg>  
-        </div>
-      {/if}
-    </div>
-    <div slot="expanded" class="expanded">
-      <SignOut>
-        <div slot="submitButton" class="signOut">Logg ut</div>
-      </SignOut>
-    </div>
-  </ExpandableButton>
-</div>
+<DropdownMenu>
+  <img slot="icon" src="{$user.image}" alt="User avatar" />
+  <button slot="dropdown" on:click={async () => await signOut()}>
+    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 20H6C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4H14M10 12H21M21 12L18 15M21 12L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Logg ut</span>
+  </button>
+</DropdownMenu>
 
 <style>
-  .container {
-    min-width: 150px;
-    max-width: fit-content;
-    /* position: relative; */
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 50%;
   }
-
-  .expanded {
-  }
-
-  .name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  .arrow {
-    transition: transform 0.3s ease;
-  }
-
-  .signOut {
-    margin: 0;
-    padding: 5px 10px;
-    font-size: 20px;
-    text-decoration: underline;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    color: var(--neutral-70);
-  }
-
 </style>
