@@ -1,6 +1,6 @@
 {
     "name": "DIPS Park",
-    "description": "Everything you need to book a parking spot at DIPS Trondheim",
+    "description": "DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser",
     "display": "standalone",
     "start_url": "/",
     "id": "/",

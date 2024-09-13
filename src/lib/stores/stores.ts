@@ -8,3 +8,5 @@ export let bookingDays = writable<BookingDay[]>([]);
 export let user = writable<User>();
 
 export let users = writable<User[]>([]);
+
+export let theme = writable<string>("system");

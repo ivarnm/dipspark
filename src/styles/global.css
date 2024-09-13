@@ -21,28 +21,80 @@
   --slack-border: 1px solid #ddd;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --neutral-0: black;
-    --neutral-10: #1a1a1a;
-    --neutral-30: #3d3d3d;
-    --neutral-40: #595959;
-    --neutral-60: #999999;
-    --neutral-70: #cccccc;
-    --neutral-100: white;
-  
-    --primary-60: #979ec7;
-    --primary-70: #a7aed6;
-    --primary-80: #b8bfe9;
-  
-    --secondary-70: #79BEA5;
-    --secondary-80: #89cfb5;
+.dark-theme {
+  --neutral-0: black;
+  --neutral-10: #1a1a1a;
+  --neutral-30: #3d3d3d;
+  --neutral-40: #595959;
+  --neutral-60: #999999;
+  --neutral-70: #cccccc;
+  --neutral-100: white;
 
-    --error: #f25252;
+  --primary-60: #979ec7;
+  --primary-70: #a7aed6;
+  --primary-80: #b8bfe9;
 
-    --slack-bg: #4A154B;
-    --slack-border: 1px solid var(--slack-bg);
-  }
+  --secondary-70: #79BEA5;
+  --secondary-80: #89cfb5;
+
+  --error: #f25252;
+
+  --slack-bg: #4A154B;
+  --slack-border: 1px solid var(--slack-bg);
+}
+
+.warm-theme {
+  --neutral-0: #fff7e0;
+  --neutral-10: #ffedcc;
+  --neutral-30: #ffdbb7;
+  --neutral-40: #ffb89d;
+  --neutral-60: #ff9473;
+  --neutral-70: #ff5733;
+  --neutral-100: #4d2600;
+
+  --primary-60: #f28e2b;
+  --primary-70: #d65a31;
+  --primary-80: #c44536;
+
+  --secondary-70: #e59572;
+  --secondary-80: #cf6448;
+}
+
+.cool-theme {
+  --neutral-0: #f0faff;
+  --neutral-10: #d6efff;
+  --neutral-30: #bce4ff;
+  --neutral-40: #99d4ff;
+  --neutral-60: #66bfff;
+  --neutral-70: #3399ff;
+  --neutral-100: #002d66;
+
+  --primary-60: #667799;
+  --primary-70: #4b5a72;
+  --primary-80: #334b66;
+
+  --secondary-70: #5f9ea0;
+  --secondary-80: #4682b4;
+}
+
+.halloween-theme {
+  --neutral-0: black;
+  --neutral-10: #1a1a1a;
+  --neutral-30: #3d3d3d;
+  --neutral-40: #595959;
+  --neutral-60: #999999;
+  --neutral-70: #cccccc;
+  --neutral-100: white;
+
+  --primary-60: #f39c12;
+  --primary-70: #e67e22;
+  --primary-80: #d35400;
+
+  --secondary-70: #d267ff;
+  --secondary-80: #9b59b6;
+
+  --highlight-70: #2ecc71;
+  --highlight-80: #27ae60;
 }
 
 html { 
@@ -61,6 +113,7 @@ body {
   margin: 0 auto;
   max-width: 600px;
   height: 100%;
+  position: relative;
 }
 
 h1,h2,h3,h4,a,li {
@@ -75,6 +128,8 @@ button {
   border: none;
   border-radius: 4px;
   background-color: transparent;
+  color: inherit;
+  cursor: pointer;
 }
 
 pre {
