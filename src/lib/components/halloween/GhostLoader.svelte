@@ -10,23 +10,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-		<defs>
-			<filter id="goo">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="ghost-blur" />
-				<feColorMatrix
-					in="ghost-blur"
-					mode="matrix"
-					values="
-                1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                0 0 0 16 -7"
-					result="ghost-gooey"
-				/>
-			</filter>
-		</defs>
-	</svg> -->
 </div>
 
 <style lang="scss">

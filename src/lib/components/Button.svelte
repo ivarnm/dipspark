@@ -28,8 +28,12 @@
     }
 
     &:disabled {
-      background-color: rgb(from var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor}) r g b / ${style.disabledOpacity ? style.disabledOpacity : '0.5'} );
       color: var(${style.disabledColor ? style.disabledColor : color});
+
+      &::before {
+        background-color: var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor});
+        opacity: ${style.disabledOpacity ? style.disabledOpacity : '0.5'};
+      }
     }
 	`;
 </script>
@@ -50,10 +54,27 @@
     font-size: 20px;
     min-height: 53px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.2s ease;
 
     &:disabled {
       cursor: default;
+      background-color: transparent;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        pointer-events: none;
+        border-radius: inherit; 
+      }
     }
+    
   }
 
   .loading {

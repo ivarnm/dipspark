@@ -93,8 +93,8 @@
   --secondary-70: #d267ff;
   --secondary-80: #9b59b6;
 
-  --highlight-70: #2ecc71;
-  --highlight-80: #27ae60;
+  --slack-bg: #4A154B;
+  --slack-border: 1px solid var(--slack-bg);
 }
 
 html { 
