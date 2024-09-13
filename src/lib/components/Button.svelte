@@ -28,12 +28,10 @@
     }
 
     &:disabled {
-      opacity: ${style.disabledOpacity ? style.disabledOpacity : '0.5'};
-      background-color: var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor});
+      background-color: rgb(from var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor}) r g b / ${style.disabledOpacity ? style.disabledOpacity : '0.5'} );
       color: var(${style.disabledColor ? style.disabledColor : color});
     }
 	`;
-
 </script>
 
 <button class="{button}" on:click={handleClick} disabled={loading || disabled}>
