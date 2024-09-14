@@ -10,4 +10,8 @@
     color: var(--neutral-70);
     text-decoration: none;
   }
+
+  :global(.halloween-theme) a {
+    font-family: 'Creepster', cursive;
+  }
 </style>

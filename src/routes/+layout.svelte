@@ -1,6 +1,6 @@
 <script lang="ts">
 	import "../styles/fonts.css"
-	import "../styles/global.css"
+	import "../styles/global.scss"
 	import { bookingDays, theme, user, users } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
@@ -67,10 +67,13 @@
 	{#if path !== '/info' && $theme === 'halloween'}
 		<ShyGhost />
 	{/if}
+
+	<div class="background"></div>
+	<div class="background-overlay"></div>
 </div>
 
 
-<style>
+<style lang="scss">
 	header {
 		display: flex;
 		flex-direction: column;
@@ -110,4 +113,29 @@
 		z-index: 1;
 		pointer-events: none;
 	}
+
+	:global(.halloween-theme) {
+		.background {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -2;
+			background-image: url('/images/halloween/background.jpg');
+			background-size: cover;
+			background-position: left;
+			background-repeat: no-repeat;
+		}
+
+		.background-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	} 
 </style>

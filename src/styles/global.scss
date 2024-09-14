@@ -100,7 +100,9 @@
 html { 
   font-family: 'Inter', sans-serif;
   height: 100%;
+  background-color: var(--neutral-10);
 }
+
 @supports (font-variation-settings: normal) {
   html { 
     font-family: 'Inter var', sans-serif; 
