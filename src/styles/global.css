@@ -108,7 +108,6 @@ html {
 }
 
 body {
-  background: var(--neutral-10);
   padding: 0;
   margin: 0 auto;
   max-width: 600px;
@@ -119,6 +118,11 @@ body {
 h1,h2,h3,h4,a,li {
   color: var(--neutral-70);
   font-weight: normal;
+  text-shadow:
+  -1px -1px 0 var(--neutral-10),  
+   1px -1px 0 var(--neutral-10),
+   -1px 1px 0 var(--neutral-10),
+    1px 1px 0 var(--neutral-10);
 
 }
 

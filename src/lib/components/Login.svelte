@@ -54,6 +54,7 @@
     background-color: var(--slack-bg);
     color: var(--neutral-100);
     border: var(--slack-border);
+    pointer-events: auto;
   }
 
   p {

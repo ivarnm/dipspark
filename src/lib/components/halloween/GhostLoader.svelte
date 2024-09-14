@@ -1,12 +1,12 @@
 <div class="loader">
 	<div class="circle">
-		<div class="ghost">
-			<div class="ghost__top">
-				<div class="ghost__top__face"></div>
-				<div class="ghost__top__arms"></div>
+		<div class="ghost__loader">
+			<div class="ghost__loader__top">
+				<div class="ghost__loader__top__face"></div>
+				<div class="ghost__loader__top__arms"></div>
 			</div>
-			<div class="ghost__tail">
-				<div class="ghost__tail__drip"></div>
+			<div class="ghost__loader__tail">
+				<div class="ghost__loader__tail__drip"></div>
 			</div>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 			box-shadow: calc(var(--thickness) / 2) calc(var(--thickness) / 2) var(--thickness)
 				calc(var(--thickness) / -2) var(--shadow);
 			
-			.ghost {
+			.ghost__loader {
 				width: calc(100% + calc(var(--thickness) * 2));
 				display: flex;
 				justify-content: space-between;
@@ -113,7 +113,7 @@
 							calc(var(--thickness) / 1.25) 0 0 var(--color),
 							calc(var(--thickness) / -1.25) 0 0 var(--color);
 						border-radius: 50%;
-						animation: ghost-rips 1.2s linear infinite;
+						animation: ghost__loader-rips 1.2s linear infinite;
 					}
 					&:before {
 						content: '';
@@ -135,7 +135,7 @@
 			transform: rotate(360deg);
 		}
 	}
-	@keyframes ghost-rips {
+	@keyframes ghost__loader-rips {
 		0% {
 			right: -10%;
 		}
