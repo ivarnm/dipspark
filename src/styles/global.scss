@@ -159,6 +159,7 @@ pre {
   gap: 1em;
   margin-top: 1em;
   cursor: pointer;
+  pointer-events: all;
 }
 
 input[type="checkbox"] {

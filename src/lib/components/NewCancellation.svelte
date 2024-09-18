@@ -91,6 +91,7 @@
   .submit {
     width: 100%;
     margin: 20px 0;
+    pointer-events: all;
   }
 
   button {
