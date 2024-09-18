@@ -19,6 +19,8 @@
 
   --slack-bg: white;
   --slack-border: 1px solid #ddd;
+
+  --transparent: transparent;
 }
 
 .dark-theme {
@@ -93,14 +95,16 @@
   --secondary-70: #d267ff;
   --secondary-80: #9b59b6;
 
-  --highlight-70: #2ecc71;
-  --highlight-80: #27ae60;
+  --slack-bg: #4A154B;
+  --slack-border: 1px solid var(--slack-bg);
 }
 
 html { 
   font-family: 'Inter', sans-serif;
   height: 100%;
+  background-color: var(--neutral-10);
 }
+
 @supports (font-variation-settings: normal) {
   html { 
     font-family: 'Inter var', sans-serif; 
@@ -108,7 +112,6 @@ html {
 }
 
 body {
-  background: var(--neutral-10);
   padding: 0;
   margin: 0 auto;
   max-width: 600px;
@@ -119,6 +122,11 @@ body {
 h1,h2,h3,h4,a,li {
   color: var(--neutral-70);
   font-weight: normal;
+  text-shadow:
+  -1px -1px 0 var(--neutral-10),  
+   1px -1px 0 var(--neutral-10),
+   -1px 1px 0 var(--neutral-10),
+    1px 1px 0 var(--neutral-10);
 
 }
 
@@ -151,6 +159,7 @@ pre {
   gap: 1em;
   margin-top: 1em;
   cursor: pointer;
+  pointer-events: all;
 }
 
 input[type="checkbox"] {

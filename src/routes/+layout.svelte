@@ -1,13 +1,15 @@
 <script lang="ts">
 	import "../styles/fonts.css"
-	import "../styles/global.css"
-	import { bookingDays, user, users } from '$lib/stores/stores'
+	import "../styles/global.scss"
+	import { bookingDays, theme, user, users } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
 	import Login from "$lib/components/Login.svelte";
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
 	import ThemeSelector from "$lib/components/ThemeSelector.svelte";
+	import ShyGhost from "$lib/components/halloween/ShyGhost.svelte";
 
 	import { page } from "$app/stores"
+	import PlusIcon from "$lib/components/PlusIcon.svelte";
 
 	export let data;
 
@@ -58,15 +60,26 @@
 		{:else}
 		 <Login/>
 		{/if}
-
 	</main>
+	{#if isLoggedIn && path === '/'}
+		<PlusIcon />
+	{/if}
+	{#if path !== '/info' && $theme === 'halloween'}
+		<ShyGhost />
+	{/if}
+
+	<div class="background"></div>
+	<div class="background-overlay"></div>
 </div>
 
 
-<style>
+<style lang="scss">
 	header {
 		display: flex;
 		flex-direction: column;
+		position: relative;
+		z-index: 2;
+		pointer-events: none;
 	}
 
 	.navbar {
@@ -75,6 +88,7 @@
 		align-items: center;
 		margin: 20px 30px;
 		gap: 2px;
+		pointer-events: all;
 	}
 
 	.links {
@@ -90,9 +104,38 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		pointer-events: all;
 	}
 
 	main {
 		margin: 50px 30px 50px 30px;
+		position: relative;
+		z-index: 1;
+		pointer-events: none;
 	}
+
+	:global(.halloween-theme) {
+		.background {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -2;
+			background-image: url('/images/halloween/background.jpg');
+			background-size: cover;
+			background-position: left;
+			background-repeat: no-repeat;
+		}
+
+		.background-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	} 
 </style>

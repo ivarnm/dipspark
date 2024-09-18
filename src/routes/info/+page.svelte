@@ -20,7 +20,7 @@
   });
 </script>
 
-<main>
+<section>
   <p>
     DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser.
   </p>
@@ -60,11 +60,12 @@
     eller kjør ut og motta faktura i posten. 
     Systemet fungerer slik at det er de første som kommer til plassen som vil bli sluppet inn i avtalen. 
   </p>
-</main>
+</section>
 
 <style>
-  main {
+  section {
     color: var(--neutral-70);
+    pointer-events: all;
   }
 
   h2 {

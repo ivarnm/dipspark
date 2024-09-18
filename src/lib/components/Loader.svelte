@@ -1,5 +1,14 @@
+<script lang="ts">
+  import { theme } from "$lib/stores/stores"; 
+	import GhostLoader from "./halloween/GhostLoader.svelte";
 
-<div class="loader"></div>
+</script>
+
+{#if $theme === "halloween"}
+  <GhostLoader />
+{:else}
+  <div class="loader"></div>
+{/if}
 
 <style>
   .loader {

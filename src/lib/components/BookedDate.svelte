@@ -87,6 +87,7 @@
   .container {
     margin: 14px 0;
     width: 100%;
+    pointer-events: all;
   }
 
   .booked-date {
@@ -98,6 +99,7 @@
     font-size: 20px;
     margin: 0;
     padding: 4px 0;
+    text-shadow: none;
   }
   
   .name {

@@ -54,12 +54,13 @@
     document.documentElement.classList.add(`${theme}-theme`);
   }
 
-  $: selectIcon = $theme === 'halloween' ? HalloweenEclipse : Eclipse;
-  
+  const eclipse = themes.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
+
 </script>
 
 <DropdownMenu>
-  <svelte:component slot="icon" this={selectIcon} />
+   <svelte:component slot="icon" this={eclipse}/>
+
 
   <div slot="dropdown">
     {#each themes as themeOption}
