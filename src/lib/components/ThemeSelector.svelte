@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/stores';
 	import DropdownMenu from '$lib/components/DropdownMenu.svelte';
-	// import Eclipse from '$lib/icons/Eclipse.svelte';
+	import Eclipse from '$lib/icons/Eclipse.svelte';
   import HalloweenEclipse from '$lib/icons/HalloweenEclipse.svelte';
   
   const themes = [
@@ -11,7 +11,7 @@
     { value: 'dark', label: 'Mørk' },
     { value: 'warm', label: 'Varm' },
     { value: 'cool', label: 'Kald' },
-    { value: 'halloween', label: 'Halloween' },
+    // { value: 'halloween', label: 'Halloween' },
   ];
 
   onMount(() => {
@@ -54,10 +54,13 @@
     document.documentElement.classList.add(`${theme}-theme`);
   }
 
+  const eclipse = themes.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
+
 </script>
 
 <DropdownMenu>
-   <HalloweenEclipse slot="icon" />
+   <svelte:component slot="icon" this={eclipse}/>
+
 
   <div slot="dropdown">
     {#each themes as themeOption}
