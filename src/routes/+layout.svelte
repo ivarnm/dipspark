@@ -1,5 +1,6 @@
 <script lang="ts">
 	import "../styles/fonts.css"
+	import "../styles/themes.scss"
 	import "../styles/global.scss"
 	import { bookingDays, theme, user, users } from '$lib/stores/stores'
 	import Logo from "$lib/components/Logo.svelte";
@@ -7,9 +8,10 @@
 	import UserDropdown from "$lib/components/UserDropdown.svelte"
 	import ThemeSelector from "$lib/components/ThemeSelector.svelte";
 	import ShyGhost from "$lib/components/halloween/ShyGhost.svelte";
+	import Snow from "$lib/components/christmas/Snow.svelte";
+	import PlusIcon from "$lib/components/PlusIcon.svelte";
 
 	import { page } from "$app/stores"
-	import PlusIcon from "$lib/components/PlusIcon.svelte";
 
 	export let data;
 
@@ -67,6 +69,9 @@
 	{#if path !== '/info' && $theme === 'halloween'}
 		<ShyGhost />
 	{/if}
+	{#if  $theme === 'christmas'}
+		<Snow />
+	{/if}
 
 	<div class="background"></div>
 	<div class="background-overlay"></div>
@@ -114,15 +119,14 @@
 		pointer-events: none;
 	}
 
-	:global(.halloween-theme) {
+	:global(.halloween-theme), :global(.christmas-theme) {
 		.background {
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			z-index: -2;
-			background-image: url('/images/halloween/background.jpg');
+			z-index: -3;
 			background-size: cover;
 			background-position: left;
 			background-repeat: no-repeat;
@@ -134,8 +138,24 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			z-index: -1;
+			z-index: -2;
 			background-color: rgba(0, 0, 0, 0.8);
 		}
-	} 
+	}
+
+	:global(.halloween-theme) {
+		.background {
+			background-image: url('/images/halloween/background.jpg');
+		}
+	}
+	
+	:global(.christmas-theme) {
+		.background {
+			background-image: url('/images/christmas/background.jpg');
+		}
+
+		.background-overlay {
+			background-color: rgba(0, 0, 0, 0.3);
+		}
+	}
 </style>

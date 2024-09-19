@@ -3,6 +3,7 @@
   import { theme } from '$lib/stores/stores';
 	import DropdownMenu from '$lib/components/DropdownMenu.svelte';
 	import Eclipse from '$lib/icons/Eclipse.svelte';
+  import ChristmasEclipse from '$lib/icons/ChristmasEclipse.svelte';
   import HalloweenEclipse from '$lib/icons/HalloweenEclipse.svelte';
   
   const themes = [
@@ -12,6 +13,7 @@
     { value: 'warm', label: 'Varm' },
     { value: 'cool', label: 'Kald' },
     // { value: 'halloween', label: 'Halloween' },
+    // { value: "christmas", label: "Jul" }
   ];
 
   onMount(() => {
@@ -54,7 +56,8 @@
     document.documentElement.classList.add(`${theme}-theme`);
   }
 
-  const eclipse = themes.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
+  let eclipse = themes.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
+  if (themes.find(themeOption => themeOption.value === 'christmas')) eclipse = ChristmasEclipse;
 
 </script>
 
