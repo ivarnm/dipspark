@@ -66,7 +66,7 @@
 	{#if isLoggedIn && path === '/'}
 		<PlusIcon />
 	{/if}
-	{#if path !== '/info' && $theme === 'halloween'}
+	{#if !(path === '/info' || path === '/admin/statistics') && $theme === 'halloween'}
 		<ShyGhost />
 	{/if}
 	{#if  $theme === 'christmas'}

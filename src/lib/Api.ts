@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Booking, BookingDay, BookingRequest, User } from '$lib/model/models';
-
+import type { Booking, BookingDay, BookingRequest, BookingStatistic, ParkingSpotUtilizationStatistic, ThemeRequest, ThemeStatistic, User } from '$lib/model/models';
 
 type FetchFunction = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -60,6 +59,76 @@ export async function GetUsers(fetch: FetchFunction): Promise<User[]> {
     const users = (await res.json()) as User[];
     return users;
   } 
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function SetTheme(fetch: FetchFunction, request: ThemeRequest) {
+  try {
+    const response = await fetch("/api/themes", {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+      console.error('API Error:', response.statusText);
+      return;
+    }
+    return await response.json() as ThemeRequest;  
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function GetThemeStatistics(fetch: FetchFunction): Promise<ThemeStatistic[]> {
+  try {
+    const res = await fetch("/api/admin/statistics/themes");
+    const result = (await res.json()) as ThemeStatistic[];
+    return result;
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function GetBookingStatistics(fetch: FetchFunction, fromDate?: string): Promise<BookingStatistic[]> {
+  try {
+    let url = "/api/admin/statistics/bookings";
+    if (!!fromDate) {
+      url += `?from=${fromDate}`;
+    }
+    const res = await fetch(url);
+    const result = (await res.json()) as BookingStatistic[];
+    return result;
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function GetParkingSpotUtilizationStatistics(fetch: FetchFunction, users: User[]): Promise<ParkingSpotUtilizationStatistic[]> {
+  try {
+    const res = await fetch("/api/admin/statistics/parkingspots");
+    const parkingSpotsUtilization = (await res.json()) as ParkingSpotUtilizationStatistic[];
+    return parkingSpotsUtilization;
+  }
   catch (ex) {
     console.log(ex)
     throw error(500, {

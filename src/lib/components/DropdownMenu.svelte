@@ -20,7 +20,7 @@
 
 <div class="container">
   <div class="menu" on:focusout={handleDropdownFocusLoss}>
-    <button class="avatar-btn" on:click={toggleMenu}>
+    <button class="icon-btn" on:click={toggleMenu}>
       <slot name="icon"></slot>
     </button>
 
@@ -37,7 +37,7 @@
     position: relative;
   }
 
-  .avatar-btn {
+  .icon-btn {
     background-color: transparent;  
     border: none;
     cursor: pointer;
@@ -53,7 +53,7 @@
 }
 
 
-.avatar-btn:hover {
+.icon-btn:hover {
   outline: none;
   background-color: var(--neutral-30);
 }

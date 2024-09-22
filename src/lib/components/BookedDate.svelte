@@ -17,7 +17,7 @@
   const dispatch = createEventDispatcher();
 
   $: formattedDate = DateFormat.localeString(bookingDay.date);
-  $: spotsLeft = BookingUtils.parkingSpotsLeft(bookingDay.bookings, $users);
+  $: spotsLeft = () => BookingUtils.parkingSpotsLeft(bookingDay.bookings, $users);
   $: haveBooked = bookingDay.bookings.find(booking => booking.user.id == $user.id);
 
   const handleClick = () => {
@@ -59,7 +59,7 @@
   <ExpandableButton {style} on:buttonClick={handleClick}>
     <div slot="button" class="booked-date">
       <p class="date">{formattedDate ? formattedDate : "Ugyldig dato"}</p>
-      <p class="free-spots">{spotsLeft}</p>
+      <p class="free-spots">{spotsLeft()}</p>
     </div>
     <div slot="expanded">
       {#each bookingDay.bookings as booking (booking.id)}
@@ -72,7 +72,7 @@
           </Button>
         </div>
       {/if}
-      {#if !haveBooked && spotsLeft > 0}
+      {#if !haveBooked && spotsLeft() > 0}
         <div class="book-button">
           <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={bookDay} loading={isProcessing}>
             Book

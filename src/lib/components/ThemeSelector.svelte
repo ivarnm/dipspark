@@ -1,20 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { theme } from '$lib/stores/stores';
+	import { THEMES } from '$lib/constants';
+  import { theme, user } from '$lib/stores/stores';
+  import { SetTheme } from '$lib/Api'
 	import DropdownMenu from '$lib/components/DropdownMenu.svelte';
 	import Eclipse from '$lib/icons/Eclipse.svelte';
   import ChristmasEclipse from '$lib/icons/ChristmasEclipse.svelte';
   import HalloweenEclipse from '$lib/icons/HalloweenEclipse.svelte';
-  
-  const themes = [
-    { value: 'system', label: 'Automatisk' },
-    { value: 'light', label: 'Lys' },
-    { value: 'dark', label: 'Mørk' },
-    { value: 'warm', label: 'Varm' },
-    { value: 'cool', label: 'Kald' },
-    // { value: 'halloween', label: 'Halloween' },
-    // { value: "christmas", label: "Jul" }
-  ];
 
   onMount(() => {
     if (typeof window == 'undefined') return;
@@ -22,7 +14,7 @@
     let storedTheme = localStorage.getItem('theme');
     let systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     
-    if (storedTheme && themes.some(themeOption => themeOption.value === storedTheme)) {
+    if (storedTheme && THEMES.some(themeOption => themeOption.value === storedTheme)) {
       theme.set(storedTheme);
     } 
     else {
@@ -34,15 +26,18 @@
       systemTheme = e.matches ? 'dark' : 'light';
       if (storedTheme === 'system') {
         applyTheme(systemTheme);
+        setUserTheme(`${storedTheme} (${systemTheme})`);
       }
     });
 
     theme.subscribe(value => {
       if (value === 'system') {
         applyTheme(systemTheme);
+        setUserTheme(`${value} (${systemTheme})`);
       } 
       else {
         applyTheme(value);
+        setUserTheme(value);
       }
 
       localStorage.setItem('theme', value);
@@ -56,8 +51,13 @@
     document.documentElement.classList.add(`${theme}-theme`);
   }
 
-  let eclipse = themes.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
-  if (themes.find(themeOption => themeOption.value === 'christmas')) eclipse = ChristmasEclipse;
+  // Only used for statistics
+  function setUserTheme(value: string) {
+    SetTheme(fetch, { userId: $user.id, theme: value });
+  }
+
+  let eclipse = THEMES.find(themeOption => themeOption.value === 'halloween') ? HalloweenEclipse : Eclipse;
+  if (THEMES.find(themeOption => themeOption.value === 'christmas')) eclipse = ChristmasEclipse;
 
 </script>
 
@@ -66,7 +66,7 @@
 
 
   <div slot="dropdown">
-    {#each themes as themeOption}
+    {#each THEMES as themeOption}
       <button 
         class="theme-button" 
         class:selected={$theme === themeOption.value}
