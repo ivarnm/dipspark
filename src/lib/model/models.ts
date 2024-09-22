@@ -3,6 +3,7 @@ export type User = {
   name: string;
   email: string;
   image: string;
+  isAdmin: boolean;
   hasPermanentParkingSpot: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -27,4 +28,26 @@ export type BookingRequest = {
   date: Date | string,
   isCancellationBooking: boolean,
   userId: string,
+}
+
+export type ThemeRequest = {
+  userId: string,
+  theme: string,
+}
+
+export type ThemeStatistic = {
+  value: string,
+  label: string,
+  users: number,
+}
+
+export type BookingStatistic = {
+  userId: string,
+  userName: string,
+  bookings: number,
+}
+
+export type ParkingSpotUtilizationStatistic = {
+  date: string,
+  spotsUsed: number,
 }

@@ -24,6 +24,8 @@ model User {
   sessions                Session[]
   bookings                Booking[]
   hasPermanentParkingSpot Boolean   @default(false)
+  isAdmin                 Boolean   @default(false)
+  selectedTheme           String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
