@@ -66,6 +66,7 @@
   section {
     color: var(--neutral-70);
     pointer-events: all;
+    padding-bottom: 5rem;
   }
 
   h2 {
