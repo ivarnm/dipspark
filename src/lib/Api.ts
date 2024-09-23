@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Booking, BookingDay, BookingRequest, BookingStatistic, ParkingSpotUtilizationStatistic, ThemeRequest, ThemeStatistic, User } from '$lib/model/models';
+import type { Booking, BookingDay, BookingRequest, ThemeRequest, ThemeStatistic, User } from '$lib/model/models';
 
 type FetchFunction = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -105,29 +105,12 @@ export async function GetThemeStatistics(fetch: FetchFunction): Promise<ThemeSta
   }
 }
 
-export async function GetBookingStatistics(fetch: FetchFunction, fromDate?: string): Promise<BookingStatistic[]> {
+export async function GetAllBookings(fetch: FetchFunction): Promise<Booking[]> {
   try {
-    let url = "/api/admin/statistics/bookings";
-    if (!!fromDate) {
-      url += `?from=${fromDate}`;
-    }
-    const res = await fetch(url);
-    const result = (await res.json()) as BookingStatistic[];
+    const res = await fetch("/api/admin/statistics/bookings");
+    const result = (await res.json()) as Booking[];
+    result.forEach(booking => booking.date = new Date(booking.date));
     return result;
-  }
-  catch (ex) {
-    console.log(ex)
-    throw error(500, {
-      message: 'Noe gikk galt'
-    });
-  }
-}
-
-export async function GetParkingSpotUtilizationStatistics(fetch: FetchFunction, users: User[]): Promise<ParkingSpotUtilizationStatistic[]> {
-  try {
-    const res = await fetch("/api/admin/statistics/parkingspots");
-    const parkingSpotsUtilization = (await res.json()) as ParkingSpotUtilizationStatistic[];
-    return parkingSpotsUtilization;
   }
   catch (ex) {
     console.log(ex)

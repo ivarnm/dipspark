@@ -47,7 +47,7 @@ export type BookingStatistic = {
   bookings: number,
 }
 
-export type ParkingSpotUtilizationStatistic = {
+export type ParkingSpotStatistic = {
   date: string,
   spotsUsed: number,
 }

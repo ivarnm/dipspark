@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { TOTAL_PARKING_SPOTS } from '$lib/constants';
-	import type { ParkingSpotUtilizationStatistic } from '$lib/model/models';
+	import type { ParkingSpotStatistic } from '$lib/model/models';
 
-	export let parkingSpotUtilization: ParkingSpotUtilizationStatistic[];
+	export let parkingSpotUtilization: ParkingSpotStatistic[];
 
 	const now = new Date();
 
@@ -13,7 +13,7 @@
 		);
 	};
 
-	const calculateAverageSpotsUsed = (stats: ParkingSpotUtilizationStatistic[]): number => {
+	const calculateAverageSpotsUsed = (stats: ParkingSpotStatistic[]): number => {
 		if (stats.length === 0) return 0;
 		return stats.reduce((sum, stat) => sum + stat.spotsUsed, 0) / stats.length;
 	};
