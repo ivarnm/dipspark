@@ -20,7 +20,7 @@ function groupBookingsByDate(bookings: Booking[], startDate: Date, endDate: Date
 
   bookings.forEach(booking => {
     const dateString = formatDate(booking.date);
-    bookingDays[dateString].bookings.push(booking);
+    bookingDays[dateString]?.bookings.push(booking);
   });
 
   return Object.values(bookingDays);
