@@ -122,3 +122,37 @@
     text-shadow: none;
   }
 }
+
+.winter-theme {
+  --neutral-0: black;
+  --neutral-10: #183c45;
+  --neutral-30: #235E6F;
+  --neutral-40: #3a7c8a;
+  --neutral-60: #7ba7b5;
+  --neutral-70: white;
+  --neutral-100: white;
+
+  --neutral-0: #091225; /* Rich midnight navy for a cold, crisp night */
+  --neutral-10: #123454; /* Deep vibrant blue with icy tones */
+  --neutral-30: #1f5a87; /* Bright arctic blue for a bold, chilly effect */
+  --neutral-40: #2d7bad; /* Vibrant frosty blue with a touch of teal */
+  --neutral-60: #58aee4; /* Bright ice blue for a vibrant, refreshing feel */
+  --neutral-70: #e8f7ff; /* Cool, snowy white with a faint blue tint */
+  --neutral-100: #ffffff; /* Pure white for clean contrast */
+  
+
+
+  --primary-60: #3baff3;
+  --primary-70: #2fa4e7;
+  --primary-80: #2995d4;
+
+  --secondary-70: linear-gradient(120deg, #1f5a87 0%, #2fa4e7 20%, #00ffab 80%, #7fffd4 100%);
+  --secondary-80: linear-gradient(120deg, #1b527b 0%, #2890cb 20%, #03e59a 80%, #7fffd4 100%);;
+
+  --slack-bg: #4A154B;
+  --slack-border: 1px solid var(--slack-bg);
+
+  h1,h2,h3,h4,a,li {
+    text-shadow: none;
+  }
+}
