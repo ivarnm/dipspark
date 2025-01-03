@@ -16,7 +16,7 @@
   $: backgroundColor = style.backgroundColor ? style.backgroundColor : '--neutral-30';
   $: color = style.color ? style.color : '--neutral-70';
 	$: button = css`
-		background-color: var(${backgroundColor});
+		background: var(${backgroundColor});
     border-radius: ${style.borderRadius ? style.borderRadius : '0'};
     padding: ${style.padding ? style.padding : '0 10px'};
     color: var(${color});
@@ -24,14 +24,14 @@
     min-width: ${style.minWidth ? style.minWidth : 'auto'};
 
     &:active {
-      background-color: var(${style.hoverColor ? style.hoverColor : '--neutral-30'});
+      background: var(${style.hoverColor ? style.hoverColor : '--neutral-30'});
     }
 
     &:disabled {
       color: var(${style.disabledColor ? style.disabledColor : color});
 
       &::before {
-        background-color: var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor});
+        background: var(${style.disabledBackgroundColor ? style.disabledBackgroundColor : backgroundColor});
         opacity: ${style.disabledOpacity ? style.disabledOpacity : '0.5'};
       }
     }

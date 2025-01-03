@@ -69,7 +69,7 @@
 	{#if !(path === '/info' || path === '/admin/statistics') && $theme === 'halloween'}
 		<ShyGhost />
 	{/if}
-	{#if  $theme === 'christmas'}
+	{#if  $theme === 'christmas' || $theme === 'winter'}
 		<Snow />
 	{/if}
 
@@ -119,7 +119,7 @@
 		pointer-events: none;
 	}
 
-	:global(.halloween-theme), :global(.christmas-theme) {
+	:global(.halloween-theme), :global(.christmas-theme), :global(.winter-theme) {
 		.background {
 			position: fixed;
 			top: 0;
@@ -158,4 +158,15 @@
 			background-color: rgba(0, 0, 0, 0.3);
 		}
 	}
+
+  :global(.winter-theme) {
+    .background {
+      background-image: url('/images/winter/background.png');
+    }
+
+    .background-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+
+		}
+  }
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	const particleCount = 20;
+	const particleCount = 50;
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D;
 	let snowflakes: Snowflake[] = [];
@@ -24,8 +24,8 @@
 			this.x = Math.random() * canvas.width;
 			this.y = Math.random() * -canvas.height;
 			this.vy = 1 + Math.random() * 1;
-      this.vx = (0.5 - Math.random()) * 0
-			this.radius = 1 + Math.random() * 0.5;
+      this.vx = (0.5 - Math.random()) * 0.2;
+			this.radius = 1 + Math.random() * 1.0;
 			this.alpha = 0.5 + Math.random() * 0.5;
       this.frequency = Math.random() * 0.5 + 2;
       this.amplitude = Math.random() * 0.5 + 0.5;
