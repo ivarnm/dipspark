@@ -11,7 +11,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"postinstall": "prisma generate",
-		"generate-pwa": "pwa-asset-generator static/logo.svg static/logos -i src/app.html -m static/manifest.json -b '#1C1E21' -p '20%' --path-override './logos' "
+		"generate-pwa": "pwa-asset-generator static/logo.svg static/logos -i src/app.html -m static/manifest.json -b '#1C1E21' -p '20%' --path-override '/logos' "
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
