@@ -1,21 +1,33 @@
 {
-    "name": "DIPS Park",
-    "description": "DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser",
-    "display": "standalone",
-    "start_url": "/",
-    "id": "/",
-    "icons": [
-        {
-            "src": "logo.png",
-            "sizes": "159x159",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "logo_maskable.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
-        }
-    ]
+  "name": "DIPS Park",
+  "description": "DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser",
+  "display": "standalone",
+  "start_url": "/",
+  "id": "/",
+  "icons": [
+    {
+      "src": "./logos/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./logos/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./logos/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./logos/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

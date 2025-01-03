@@ -10,7 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
-		"postinstall": "prisma generate"
+		"postinstall": "prisma generate",
+		"generate-pwa": "pwa-asset-generator static/logo.svg static/logos -i src/app.html -m static/manifest.json -b '#1C1E21' -p '20%' --path-override './logos' "
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -25,6 +26,7 @@
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"prisma": "^5.17.0",
+		"pwa-asset-generator": "^6.4.0",
 		"sass": "^1.78.0",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
