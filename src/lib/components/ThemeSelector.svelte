@@ -11,12 +11,6 @@
 	onMount(() => {
 		if (typeof window == 'undefined') return;
 
-		console.log('Device Pixel Ratio:', window.devicePixelRatio);
-		console.log('Screen Width:', screen.width);
-		console.log('Screen Height:', screen.height);
-		console.log('Available Width:', window.innerWidth);
-		console.log('Available Height:', window.innerHeight);
-
 		let storedTheme = localStorage.getItem('theme');
 		let systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 

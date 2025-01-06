@@ -38,7 +38,10 @@ You can preview the production build with `npm run preview`.
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
 ## PWA Asset generation
-Documentation: https://github.com/elegantapp/pwa-asset-generator
+Documentation: 
+* https://github.com/elegantapp/pwa-asset-generator
+* https://developer.apple.com/design/human-interface-guidelines/layout/
+
 ```bash
 npm run generate-pwa
 ```
