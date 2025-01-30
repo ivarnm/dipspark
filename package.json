@@ -38,6 +38,7 @@
 		"@auth/prisma-adapter": "^2.4.2",
 		"@auth/sveltekit": "^1.4.2",
 		"@emotion/css": "^11.11.2",
-		"@prisma/client": "^5.17.0"
+		"@prisma/client": "^5.17.0",
+		"firebase": "^11.2.0"
 	}
 }

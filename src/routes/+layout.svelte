@@ -12,6 +12,7 @@
 	import PlusIcon from "$lib/components/PlusIcon.svelte";
 
 	import { page } from "$app/stores"
+	import Button from "$lib/components/Button.svelte";
 
 	export let data;
 
@@ -25,6 +26,17 @@
 	$: path = $page.url.pathname;
 	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
 	$: isAnonymousPath = anonymousPaths.includes(path);
+
+  const pushButtonClicked = () => {
+    console.log('Push button clicked');
+    console.log("requesting push permission...");
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        console.log("Notification permission granted");
+      }
+      
+    })
+  }
 </script>
 
 <svelte:head>
@@ -42,6 +54,9 @@
 					<a href="/info">Info</a>
 				{/if}
 			</div>
+      <div>
+        <Button on:buttonClick={pushButtonClicked}>Push</Button>
+      </div>
 			<div class="color">
 				<ThemeSelector />
 			</div>
