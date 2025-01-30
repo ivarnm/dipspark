@@ -13,8 +13,11 @@
 
 	import { page } from "$app/stores"
 	import Button from "$lib/components/Button.svelte";
+	import { requestNotificationPermission, onMessageListener } from "$lib/helpers/firebase";
+	import { onMount } from "svelte";
 
 	export let data;
+  let token = null;
 
 	if (data.users) users.set(data.users);
 	if (data.bookingDays) bookingDays.set(data.bookingDays);
@@ -27,15 +30,20 @@
 	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
 	$: isAnonymousPath = anonymousPaths.includes(path);
 
+  onMount(async () => {
+    if (typeof window == 'undefined') return;
+    
+    token = await requestNotificationPermission();
+    console.log("Push Notification Token:", token);
+
+    onMessageListener().then((payload) => {
+      console.log("Message received: ", payload);
+      // @ts-ignore
+      alert(`New notification: ${payload.notification.title}`);
+    });
+  });
   const pushButtonClicked = () => {
-    console.log('Push button clicked');
-    console.log("requesting push permission...");
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        console.log("Notification permission granted");
-      }
-      
-    })
+    token = requestNotificationPermission();
   }
 </script>
 
