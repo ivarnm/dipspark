@@ -45,14 +45,3 @@ export async function requestNotificationPermission() {
     return null;
   }
 }
-
-// export function onMessageListener() {
-//   if (!browser || !messaging) return Promise.resolve();
-
-//   return new Promise((resolve) => {
-//     onMessage(messaging, (payload) => {
-//       console.log("Foreground notification received:", payload);
-//       resolve(payload);
-//     });
-//   });
-// }
