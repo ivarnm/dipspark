@@ -32,7 +32,6 @@
 
   onMount(async () => {
     if (typeof window == 'undefined') return;
-    
     token = await requestNotificationPermission();
     console.log("Push Notification Token:", token);
 
@@ -42,6 +41,7 @@
       alert(`New notification: ${payload.notification.title}`);
     });
   });
+
   const pushButtonClicked = () => {
     token = requestNotificationPermission();
   }

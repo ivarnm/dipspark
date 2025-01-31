@@ -1,5 +1,6 @@
+import { browser } from "$app/environment";
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken, onMessage, type Messaging } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCSkB8k_k8VfEIp-huw_QPhrXcVWjeE-U4",
@@ -10,10 +11,15 @@ const firebaseConfig = {
   appId: "1:884190036925:web:6dcbc6fe41f1283fbdc8d4",
 };
 
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+let messaging: Messaging | null = null;
+if (browser) {
+  const app = initializeApp(firebaseConfig);
+  messaging = getMessaging(app);
+}
 
 export async function requestNotificationPermission() {
+  if (!browser || !messaging) return null;
+  
   console.log("Requesting permission...");
   const permission = await Notification.requestPermission();
 
@@ -41,6 +47,8 @@ export async function requestNotificationPermission() {
 }
 
 export function onMessageListener() {
+  if (!browser || !messaging) return Promise.resolve();
+  
   return new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       console.log("Foreground notification received:", payload);
