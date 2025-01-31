@@ -13,7 +13,7 @@
 
 	import { page } from "$app/stores"
 	import Button from "$lib/components/Button.svelte";
-	import { requestNotificationPermission, onMessageListener } from "$lib/helpers/firebase";
+	import { requestNotificationPermission } from "$lib/helpers/firebase";
 	import { onMount } from "svelte";
 
 	export let data;
@@ -32,18 +32,17 @@
 
   onMount(async () => {
     if (typeof window == 'undefined') return;
-    token = await requestNotificationPermission();
-    console.log("Push Notification Token:", token);
 
-    onMessageListener().then((payload) => {
-      console.log("Message received: ", payload);
-      // @ts-ignore
-      alert(`New notification: ${payload.notification.title}`);
-    });
+    // onMessageListener().then((payload) => {
+    //   console.log("Message received: ", payload);
+    //   // @ts-ignore
+    //   alert(`New notification: ${payload.notification.title}`);
+    // });
   });
 
   const pushButtonClicked = () => {
     token = requestNotificationPermission();
+    console.log("Push Notification Token:", token);
   }
 </script>
 
