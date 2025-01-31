@@ -3,7 +3,26 @@
   import styles from '$lib/Styles'
   import BookingUtils from "$lib/helpers/BookingUtils"
 	import BookedDate from '$lib/components/BookedDate.svelte';
-	import type { BookingDay } from '$lib/model/models';
+	import type { BookingDay, ParkingAvailableSubscription } from '$lib/model/models';
+  import { GetParkingAvailableSubscriptions } from '$lib/Api'
+	import { onMount } from 'svelte';
+  import { browser } from "$app/environment";
+	import { requestNotificationPermission } from '$lib/helpers/firebase';
+
+  let subscriptions: ParkingAvailableSubscription[]
+  
+  onMount(async () => {
+    try {
+      console.log("mounted")
+      if (!browser || Notification.permission !== 'granted') return;
+      const token = await requestNotificationPermission()
+      if (!token) return;
+      subscriptions = await GetParkingAvailableSubscriptions(fetch, token);
+    } 
+    catch (ex) {
+			console.error(ex);
+		}
+  });
 
   const haveBookedDay = (bookingDay: BookingDay) => {
     return bookingDay.bookings.find(booking => booking.user.id == $user.id);
@@ -31,7 +50,7 @@
 
 	{#each $bookingDays as bookingDay, i (bookingDay.date)}
     <div class="booked-date">
-      <BookedDate {bookingDay} style={dateStyles[i]} />
+      <BookedDate {bookingDay} subscription={subscriptions?.find(s => s.date.toString() == bookingDay.date) ?? null} style={dateStyles[i]} />
     </div>
 	{/each}
 </div>

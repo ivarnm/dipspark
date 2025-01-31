@@ -36,3 +36,13 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+
+## Database
+Database is running at https://supabase.com/dashboard/project/pqtifbuntcmykevnukkc
+
+To make changes to the db:
+1. Edit the /prisma/schema.prisma file
+1. Run `npx prisma migrate dev --name <your_migration_name>` to create and push the migration
+1. Run `npx prisma generate` to update the Prisma client
+1. Restart your IDE

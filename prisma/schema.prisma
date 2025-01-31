@@ -77,3 +77,10 @@ model Booking {
   user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   isCancellationBooking Boolean  @default(false)
 }
+
+model ParkingAvailableSubscription {
+  token  String
+  date   DateTime
+
+  @@id([token, date])
+}

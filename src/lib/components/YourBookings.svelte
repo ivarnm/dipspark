@@ -13,7 +13,7 @@
     <p>{isDefaultUser ? 'Du har ingen kansellerte parkeringer' :'Du har ingen reserverte parkeringer'}</p>
   {/if}
 	{#each yourBookings as bookingDay (bookingDay.date)}
-		<BookedDate {bookingDay} style={styles.button.secondary} />
+		<BookedDate {bookingDay} subscription={null} style={styles.button.secondary} />
 	{/each}
 </div>
 

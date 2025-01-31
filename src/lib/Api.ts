@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Booking, BookingDay, BookingRequest, ThemeRequest, ThemeStatistic, User } from '$lib/model/models';
+import type { Booking, BookingDay, BookingRequest, ParkingAvailableSubscription, ThemeRequest, ThemeStatistic, User } from '$lib/model/models';
 
 type FetchFunction = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
@@ -111,6 +111,63 @@ export async function GetAllBookings(fetch: FetchFunction): Promise<Booking[]> {
     const result = (await res.json()) as Booking[];
     result.forEach(booking => booking.date = new Date(booking.date));
     return result;
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function GetParkingAvailableSubscriptions(fetch: FetchFunction, token: string): Promise<ParkingAvailableSubscription[]> {
+  try {
+    const res = await fetch(`/api/subscriptions?token=${token}`);
+    const result = (await res.json()) as ParkingAvailableSubscription[];
+    return result;
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function SubscribeParkingAvailable(fetch: FetchFunction, request: ParkingAvailableSubscription) {
+  try {
+    const response = await fetch("/api/subscriptions", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+      console.error('API Error:', response.statusText);
+      return;
+    }
+    return await response.json() as ParkingAvailableSubscription;  
+  }
+  catch (ex) {
+    console.log(ex)
+    throw error(500, {
+      message: 'Noe gikk galt'
+    });
+  }
+}
+
+export async function UnsubscribeParkingAvailable(fetch: FetchFunction, request: ParkingAvailableSubscription) {
+  try {
+    const response = await fetch(`/api/subscriptions?token=${request.token}&date=${request.date}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      console.error('API Error:', response.statusText);
+      return;
+    }
   }
   catch (ex) {
     console.log(ex)

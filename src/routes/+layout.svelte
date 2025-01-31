@@ -29,8 +29,8 @@
 	$: title = path === '/info' ? 'DIPS Park - Info' : 'DIPS Park';
 	$: isAnonymousPath = anonymousPaths.includes(path);
 
-  const pushButtonClicked = () => {
-    token = requestNotificationPermission();
+  const pushButtonClicked = async () => {
+    token = await requestNotificationPermission();
     console.log("Push Notification Token:", token);
   }
 </script>

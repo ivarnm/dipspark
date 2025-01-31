@@ -51,3 +51,8 @@ export type ParkingSpotStatistic = {
   date: string,
   spotsUsed: number,
 }
+
+export type ParkingAvailableSubscription = {
+  token: string,
+  date: string,
+}

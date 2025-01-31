@@ -42,6 +42,10 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     select: bookingSelect
   });
 
+  // delete your own subscription if exists
+
+  // if Liv, notify users of available parking spot
+
   return json(created, { status: 201 });
 }
 
