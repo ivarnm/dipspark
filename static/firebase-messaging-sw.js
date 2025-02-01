@@ -1,10 +1,3 @@
-/// <reference types="@sveltejs/kit" />
-/// <reference no-default-lib="true"/>
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-
-const sw = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (self));
-
 importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
 
@@ -22,10 +15,8 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log("Received background message: ", payload);
-  if (payload.notification) {
-    sw.registration.showNotification("Hi from service worker", {
-      body: payload.notification.body,
-      icon: "/logo_650.png"
-    });
-  }
+  self.registration.showNotification("Hello from service worker", {
+    body: payload.notification.body,
+    icon: "/icons/icon-192x192.png"
+  });
 });
