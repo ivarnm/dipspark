@@ -3,12 +3,10 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import firebase from "firebase/compat/app";
-
 const sw = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (self));
 
-// importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
-// importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
 
 firebase.initializeApp({
   apiKey: "AIzaSyCSkB8k_k8VfEIp-huw_QPhrXcVWjeE-U4",
