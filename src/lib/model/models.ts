@@ -28,6 +28,7 @@ export type BookingRequest = {
   date: Date | string,
   isCancellationBooking: boolean,
   userId: string,
+  fcmToken?: string
 }
 
 export type ThemeRequest = {

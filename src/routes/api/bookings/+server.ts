@@ -1,9 +1,10 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import db from '$lib/server/database';
-import { DATE_OFFSET, MAX_BOOKING_DAYS_FORWARD, MAX_CANCELLATION_DAYS_FORWARD, TOTAL_PARKING_SPOTS } from '$lib/constants';
+import { DATE_OFFSET, MAX_BOOKING_DAYS_FORWARD, MAX_CANCELLATION_DAYS_FORWARD } from '$lib/constants';
 import BookingUtils from '$lib/helpers/BookingUtils';
 import type { Booking, BookingDay, BookingRequest, User } from '$lib/model/models';
+import { sendAvailableParkingNotification } from '$lib/helpers/firebase-admin';
 
 export const GET: RequestHandler = async ({ locals }) => {
   var auth = await locals.auth();
@@ -42,9 +43,14 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     select: bookingSelect
   });
 
-  // delete your own subscription if exists
-
-  // if Liv, notify users of available parking spot
+  if (bookingRequest.fcmToken) { // delete your own subscription if it exists.
+    await db.parkingAvailableSubscription.deleteMany({
+      where: {
+        token: bookingRequest.fcmToken,
+        date: bookingRequest.date
+      }
+    })
+  }
 
   return json(created, { status: 201 });
 }
@@ -119,5 +125,23 @@ async function canBook(bookingRequest: BookingRequest, locals: App.Locals): Prom
   if (parkingSpotsLeft <= 0 && !requestingUser.hasPermanentParkingSpot) return false;
   if (existingBookings.find(b => b.user.id === bookingRequest.userId)) return false;
   if (requestingUser?.id !== bookingRequest.userId) return false;
+
+  await sendNotification(bookingRequest, parkingSpotsLeft);
+
   return true;
+}
+
+async function sendNotification(bookingRequest: BookingRequest, parkingSpotsLeft: number) {
+  if (bookingRequest.isCancellationBooking && parkingSpotsLeft === 0) {
+    const subscriptions = await db.parkingAvailableSubscription.findMany({
+      where: {
+        date: bookingRequest.date
+      },
+      select: {
+        token: true
+      }
+    })
+    const tokens = subscriptions.map((s) => s.token);
+    await sendAvailableParkingNotification(tokens, new Date(bookingRequest.date));
+  }
 }
