@@ -9,7 +9,6 @@ export async function sendNotification(tokens: string[], title: string, body: st
 	const message: MulticastMessage = {
 		tokens,
 		notification: { title, body, imageUrl: 'https://dipspark.no/logo_650.png' },
-		apns: { payload: { aps: { contentAvailable: true } } }
 	};
 
 	const response = await admin.messaging().sendEachForMulticast(message);

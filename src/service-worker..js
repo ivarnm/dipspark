@@ -1,5 +1,14 @@
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
+/// <reference types="@sveltejs/kit" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+
+import firebase from "firebase/compat/app";
+
+const sw = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (self));
+
+// importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
+// importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
 
 firebase.initializeApp({
   apiKey: "AIzaSyCSkB8k_k8VfEIp-huw_QPhrXcVWjeE-U4",
@@ -15,8 +24,8 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log("Received background message: ", payload);
-  if (!payload.notification) {
-    self.registration.showNotification(payload.notification.title, {
+  if (payload.notification) {
+    sw.registration.showNotification("Hi from service worker", {
       body: payload.notification.body,
       icon: "/logo_650.png"
     });
