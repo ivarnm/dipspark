@@ -19,6 +19,41 @@ messaging.onBackgroundMessage((payload) => {
   
   self.registration.showNotification("Hello from service worker", {
     body: payload.data?.body,
-    icon: "/logo_maskable.png"
+    icon: "/logo_maskable.png",
+    data: {
+      url: 'https://dipspark-git-push-ivarnms-projects.vercel.app/book'
+    }
   });
 });
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("Notification clicked:", event.notification);
+  event.notification.close();
+
+  const urlToOpen = event.notification.data?.url || "/"; // Default to home if no URL is provided
+
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      // If app is already open, focus the existing tab
+      for (let client of clientList) {
+        if (client.url === urlToOpen && "focus" in client) {
+          return client.focus();
+        }
+      }
+      // If app is not open, open a new tab
+      return clients.openWindow(urlToOpen);
+    })
+  );
+});
+
+// interface NotificationOptions {
+//   badge?: string;
+//   body?: string;
+//   data?: any;
+//   dir?: NotificationDirection;
+//   icon?: string;
+//   lang?: string;
+//   requireInteraction?: boolean;
+//   silent?: boolean | null;
+//   tag?: string;
+// }
