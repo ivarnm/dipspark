@@ -15,8 +15,10 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log("Received background message: ", payload);
+  if (!payload.data) return;
+  
   self.registration.showNotification("Hello from service worker", {
-    body: payload.notification.body,
-    icon: "/icons/icon-192x192.png"
+    body: payload.data?.body,
+    icon: "/logo_maskable.png"
   });
 });

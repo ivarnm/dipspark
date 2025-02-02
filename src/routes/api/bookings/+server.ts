@@ -12,7 +12,7 @@ export const GET: RequestHandler = async ({ locals }) => {
   const daysForward = (auth!.user as unknown as User)?.hasPermanentParkingSpot ? MAX_CANCELLATION_DAYS_FORWARD : MAX_BOOKING_DAYS_FORWARD;
   const startDate = setToMidnight(new Date());
   startDate.setDate(startDate.getDate() + DATE_OFFSET);
-  const endDate = setToMidnight(new Date());
+  const endDate = setToMidnight(new Date(startDate));
   endDate.setDate(startDate.getDate() + daysForward);
   
   const bookings = await db.booking.findMany({
