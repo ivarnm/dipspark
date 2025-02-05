@@ -35,19 +35,18 @@ self.addEventListener("notificationclick", (event) => {
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-      let matchingClient = null;
-
-      for (let client of clientList) {
-        // If there's already an open tab with the PWA, focus it
-        if (client.url.startsWith("https://dipspark-git-push-ivarnms-projects.vercel.app") && "focus" in client) {
-          matchingClient = client;
-        }
-      }
+      const matchingClient = clientList.find(client =>
+        client.url.startsWith("https://dipspark-git-push-ivarnms-projects.vercel.app")
+      );
 
       if (matchingClient) {
-        return matchingClient.focus(); // Focus the existing PWA tab
+        // If the app is already open, focus it and navigate to the correct page
+        return matchingClient.focus().then(() => {
+          return matchingClient.navigate(urlToOpen);
+        });
       } else {
-        return clients.openWindow(urlToOpen); // Open a new tab if PWA isn't running
+        // Otherwise, open the app in a new tab
+        return clients.openWindow(urlToOpen);
       }
     })
   );
