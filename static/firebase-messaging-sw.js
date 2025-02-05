@@ -42,7 +42,7 @@ self.addEventListener('notificationclick', (event) => {
 
 			if (matchingClient) {
 				// If the app is already open, focus it and navigate to the correct page
-				await matchingClient.close();
+				return matchingClient.focus(); // This does not work in Android 15 https://github.com/firebase/firebase-js-sdk/issues/8668
 			}
 			return clients.openWindow(urlToOpen);
 		})
