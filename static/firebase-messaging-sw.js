@@ -31,7 +31,7 @@ self.addEventListener("notificationclick", (event) => {
   console.log("Notification clicked:", event.notification);
   event.notification.close();
 
-  const urlToOpen = event.notification.data?.url || "/"; // Default to home if no URL is provided
+  const urlToOpen = event.notification.data?.url || "https://dipspark-git-push-ivarnms-projects.vercel.app";
 
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
