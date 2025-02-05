@@ -27,30 +27,30 @@ messaging.onBackgroundMessage((payload) => {
   });
 });
 
-self.addEventListener("notificationclick", (event) => {
-  console.log("Notification clicked:", event.notification);
-  event.notification.close();
+// self.addEventListener("notificationclick", (event) => {
+//   console.log("Notification clicked:", event.notification);
+//   event.notification.close();
 
-  const urlToOpen = event.notification.data?.url || "https://dipspark-git-push-ivarnms-projects.vercel.app/book";
+//   const urlToOpen = event.notification.data?.url || "https://dipspark-git-push-ivarnms-projects.vercel.app/book";
 
-  event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-      const matchingClient = clientList.find(client =>
-        client.url.startsWith("https://dipspark-git-push-ivarnms-projects.vercel.app")
-      );
+//   event.waitUntil(
+//     clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+//       const matchingClient = clientList.find(client =>
+//         client.url.startsWith("https://dipspark-git-push-ivarnms-projects.vercel.app")
+//       );
 
-      if (matchingClient) {
-        // If the app is already open, focus it and navigate to the correct page
-        return matchingClient.focus().then(() => {
-          return matchingClient.navigate(urlToOpen);
-        });
-      } else {
-        // Otherwise, open the app in a new tab
-        return clients.openWindow(urlToOpen);
-      }
-    })
-  );
-});
+//       if (matchingClient) {
+//         // If the app is already open, focus it and navigate to the correct page
+//         return matchingClient.focus().then(() => {
+//           return matchingClient.navigate(urlToOpen);
+//         });
+//       } else {
+//         // Otherwise, open the app in a new tab
+//         return clients.openWindow(urlToOpen);
+//       }
+//     })
+//   );
+// });
 
 // interface NotificationOptions {
 //   badge?: string;
