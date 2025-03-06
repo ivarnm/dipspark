@@ -53,6 +53,7 @@
 
   // Only used for statistics
   function setUserTheme(value: string) {
+    if (!$user) return;
     SetTheme(fetch, { userId: $user.id, theme: value });
   }
 

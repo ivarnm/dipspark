@@ -27,27 +27,27 @@ const messaging = firebase.messaging();
 // 	});
 // });
 
-// self.addEventListener('notificationclick', (event) => {
-// 	console.log('Notification clicked:', event.notification);
-// 	event.notification.close();
+self.addEventListener('notificationclick', (event) => {
+	console.log('Notification clicked:', event.notification);
+	event.notification.close();
 
-// 	const urlToOpen =
-// 		event.notification.data?.url || 'https://dipspark-git-push-ivarnms-projects.vercel.app/book';
+	const urlToOpen =
+		event.notification.data?.url || 'https://dipspark-git-push-ivarnms-projects.vercel.app/book';
 
-// 	event.waitUntil(
-// 		clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async (clientList) => {
-// 			const matchingClient = clientList.find((client) =>
-// 				client.url.startsWith('https://dipspark-git-push-ivarnms-projects.vercel.app')
-// 			);
+	event.waitUntil(
+		clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async (clientList) => {
+			const matchingClient = clientList.find((client) =>
+				client.url.startsWith('https://dipspark-git-push-ivarnms-projects.vercel.app')
+			);
 
-// 			if (matchingClient) {
-// 				// If the app is already open, focus it and navigate to the correct page
-// 				return matchingClient.focus(); // This does not work in Android 15 https://github.com/firebase/firebase-js-sdk/issues/8668
-// 			}
-// 			return clients.openWindow(urlToOpen);
-// 		})
-// 	);
-// });
+			if (matchingClient) {
+				// If the app is already open, focus it and navigate to the correct page
+				return matchingClient.focus(); // This does not work in Android 15 https://github.com/firebase/firebase-js-sdk/issues/8668
+			}
+			return clients.openWindow(urlToOpen);
+		})
+	);
+});
 
 // interface NotificationOptions {
 //   badge?: string;
