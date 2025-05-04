@@ -14,5 +14,5 @@ export const THEMES = [
   { value: 'cool', label: 'Kald' },
   // { value: 'halloween', label: 'Halloween' },
   // { value: 'christmas', label: 'Jul' },
-  { value: 'winter', label: 'Vinter' },
+  // { value: 'winter', label: 'Vinter' },
 ]; 
