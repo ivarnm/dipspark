@@ -12,6 +12,15 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
     // Add all user data to the session
     async session({ session, user }) {
       return session;
+    },
+    async signIn({ user, profile }) {
+      if (user?.id && profile?.picture) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { image: profile.picture },
+        });
+      }
+      return true;
     }
   },
   trustHost: true,
