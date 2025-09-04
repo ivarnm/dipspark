@@ -1,4 +1,4 @@
-import { browser } from "$app/environment";
+import { browser, dev } from "$app/environment";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage, type Messaging } from "firebase/messaging";
 
@@ -25,6 +25,9 @@ export async function requestNotificationPermission() {
 
   if (permission === "granted") {
     console.log("Notification permission granted.");
+    if (dev) {
+      return "fBaTDYEhXPZctMe_CWm7Sg:APA91bGN4aAGE781djx9yneXM-wruIdl4dqFCh-GxlhhUGVwuCtSlMjto-pgaCmAQND2QAdj0vU1cROwdRDKNd9TFrLkx0q27kW95q0dqutKrINS2-XvjQY"
+    }
     return getToken(messaging, {
       vapidKey: "BHrIJ-qElU3pIeg5SMnSjr5Q3uYn4exMcbeLrpD4DZ9hxu-lNlLNN4VGIQFtef1YrjKOE-Mqt5T3TTFJ1ZmGUd8"
     })

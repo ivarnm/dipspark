@@ -94,26 +94,4 @@
     pointer-events: all;
   }
 
-  button {
-    width: 100%;
-    font-size: 20px;
-    min-height: 53px;
-    cursor: pointer;
-    background-color: var(--primary-70);
-    border: none;
-    padding: 0 10px;
-    color: var(--neutral-0);
-
-    &:active {
-      background-color: var(--primary-80);
-    }
-
-    &:disabled {
-      background-color: var(--neutral-40);
-      color: var(--neutral-70);
-      cursor: default;
-    }
-  }
-
-
 </style>

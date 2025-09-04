@@ -3,6 +3,7 @@
     "description": "DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser",
     "display": "standalone",
     "start_url": "/",
+    "scope": "/",
     "id": "/",
     "gcm_sender_id": "884190036925",
     "icons": [

@@ -6,9 +6,25 @@ export async function sendNotification(tokens: string[], title: string, body: st
 	if (!tokens.length) return;
 	initialize();
 
+  const icon = 'https://dipspark.no/logo_650.png';
+  const url = 'https://dipspark-git-push-ivarnms-projects.vercel.app/book';
 	const message: MulticastMessage = {
 		tokens,
-		data: { title, body },
+		notification: { title, body },
+    data: {
+      url,
+    },
+    android: {
+      notification: {
+        icon,
+      }
+    },
+    webpush: {
+      notification: {
+        icon,
+        click_action: url // Opens PWA when clicked
+      }
+    },
 	};
 
 	const response = await admin.messaging().sendEachForMulticast(message);

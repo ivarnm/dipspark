@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { user, users, bookingDays } from "$lib/stores/stores"
-  import { BookDay, DeleteBooking, GetBookingDays, SubscribeParkingAvailable, UnsubscribeParkingAvailable } from '$lib/Api'
+  import { BookDay, DeleteBooking, GetBookingDays, SubscribeParkingAvailable, UnsubscribeParkingAvailable, SendTestNotification, SendTestNotificationDelete } from '$lib/Api'
   import styles from '$lib/Styles'
   import DateFormat from "$lib/helpers/DateFormat"
   import BookingUtils from "$lib/helpers/BookingUtils"
@@ -86,6 +86,24 @@
     isProcessing = false;
   }
 
+  const sendTestNotification = async () => {
+    if (isProcessing) return; 
+    isProcessing = true;
+    await SendTestNotification(fetch, {
+			userId: $user.id,
+			date: bookingDay.date,
+			isCancellationBooking: $user.hasPermanentParkingSpot,
+      fcmToken: Notification.permission === 'granted' ? await requestNotificationPermission() ?? undefined : undefined
+		});
+    const bookingToDelete = bookingDay.bookings.length > 0 ? bookingDay.bookings[0] : null;
+    if (!bookingToDelete) {
+      isProcessing = false;
+      return;
+    };
+    await SendTestNotificationDelete(fetch, bookingToDelete.id);
+    isProcessing = false;
+  }
+
 </script>
 <div class="container">
   <ExpandableButton {style} on:buttonClick={handleClick}>
@@ -104,40 +122,53 @@
       {#each bookingDay.bookings as booking (booking.id)}
         <p class="name" style="text-decoration: {booking.isCancellationBooking ? 'line-through' : 'none'};">{booking.user.name}</p>
       {/each}
-      {#if haveBooked}
+      <div class="buttons">
+        <div class="book-button">
+          <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={sendTestNotification}>
+            Send testvarsel
+          </Button>
+        </div>
+        {#if haveBooked}
         <div class="book-button">
           <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={deleteBooking} loading={isProcessing}>
             {haveBooked.isCancellationBooking ? 'Fjern kansellering' : 'Fjern reservasjon'}
           </Button>
         </div>
-      {/if}
-      {#if !haveBooked && spotsLeft() > 0}
+        {/if}
+        {#if !haveBooked && spotsLeft() > 0}
         <div class="book-button">
           <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={bookDay} loading={isProcessing}>
             Book
           </Button>
         </div>
-      {/if}
-      {#if !haveBooked && spotsLeft() == 0}
-        {#if subscription}
-          <div class="book-button">
-            <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={unsubscribe} loading={isProcessing}>
-              Fjern varsel
-            </Button>
-          </div>
-        {:else}
-          <div class="book-button">
-            <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={subscribe} loading={isProcessing}>
-              Få varsel
-            </Button>
-          </div>
         {/if}
-      {/if}
+        {#if !haveBooked && spotsLeft() == 0}
+        {#if subscription}
+        <div class="book-button">
+          <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={unsubscribe} loading={isProcessing}>
+            Fjern varsel
+          </Button>
+        </div>
+        {:else}
+        <div class="book-button">
+          <Button style={{...styles.button.primary, padding: '0 15px', minWidth: '185px'}} on:buttonClick={subscribe} loading={isProcessing}>
+            Få varsel
+          </Button>
+        </div>
+        {/if}
+        {/if}
+      </div>
     </div>
   </ExpandableButton>
 </div>
 
 <style>
+  .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: end
+  }
+
   .container {
     margin: 14px 0;
     width: 100%;

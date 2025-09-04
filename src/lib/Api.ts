@@ -176,3 +176,39 @@ export async function UnsubscribeParkingAvailable(fetch: FetchFunction, request:
     });
   }
 }
+
+export async function SendTestNotification(fetch: FetchFunction, request: BookingRequest) {
+  try {
+    const response = await fetch("/api/admin/notification-tests", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+      console.error('API Error:', response.statusText);
+      return;
+    }
+    return await response.json() as Booking;    
+  } 
+  catch (ex) {
+    console.error('Error:', (ex as Error).message);
+  }
+}
+
+export async function SendTestNotificationDelete(fetch: FetchFunction, bookingId: string) {
+  try {
+    const response = await fetch(`/api/admin/notification-tests/${bookingId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      console.error('API Error:', response.statusText);
+      return;
+    }
+  } 
+  catch (ex) {
+    console.error('Error:', (ex as Error)?.message);
+  }
+}

@@ -32,6 +32,7 @@
   const pushButtonClicked = async () => {
     token = await requestNotificationPermission();
     console.log("Push Notification Token:", token);
+    await fetch('/api/admin/notification-tests')
   }
 </script>
 
