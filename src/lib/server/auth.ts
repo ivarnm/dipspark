@@ -10,16 +10,16 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
   providers: [Slack],
   callbacks: {
     // Add all user data to the session
-    async session({ session, user }) {
+    async session({ session }) {
       return session;
     },
     async signIn({ user, profile }) {
-      if (user?.id && profile?.picture) {
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { image: profile.picture },
-        });
-      }
+      // if (user?.id && profile?.picture) {
+      //   await prisma.user.update({
+      //     where: { id: user.id },
+      //     data: { image: profile.picture },
+      //   });
+      // }
       return true;
     }
   },
