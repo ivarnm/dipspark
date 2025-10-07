@@ -14,12 +14,13 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
       return session;
     },
     async signIn({ user, profile }) {
-      // if (user?.id && profile?.picture) {
-      //   await prisma.user.update({
-      //     where: { id: user.id },
-      //     data: { image: profile.picture },
-      //   });
-      // }
+      if (user?.id && profile?.picture) {
+        console.log(profile)
+        await prisma.user.updateMany({
+          where: { id: user.id },
+          data: { image: profile.picture, name: profile.name },
+        });
+      }
       return true;
     }
   },
