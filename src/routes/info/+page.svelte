@@ -11,6 +11,7 @@
     <strong>"Uskrevne" regler:</strong>
     <ul>
       <li>Book tidligst dagen før du trenger parkeringen</li>
+      <li>Avbestill så tidlig som mulig om du ikke trenger plassen likevel</li>
       <li>Book flere dager i forveien KUN ved spesielle behov</li>
       <li>Book også i helger for å unngå overraskelser</li>
     </ul>
