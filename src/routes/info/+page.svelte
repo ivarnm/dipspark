@@ -3,9 +3,17 @@
     DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser.
   </p>
   <p>
-    Kontoret disponerer 6 parkeringsplasser i B-området (U1) i Solsiden Parkeringshus. 
+    Kontoret disponerer 9 parkeringsplasser i B-området (U1) i Solsiden Parkeringshus. 
     Én av parkeringsplassene er fast tildelt en av våre ansatte. Når fast bruker ikke bruker plassen kan øvrige ansatte ved kontoret bruke den.
   </p>
+
+  <p>
+    <strong>"Uskrevne" regler:</strong>
+    <ul>
+      <li>Book tidligst dagen før du trenger parkeringen</li>
+      <li>Book flere dager i forveien KUN ved spesielle behov</li>
+      <li>Book også i helger for å unngå overraskelser</li>
+    </ul>
 
   <h2>Registre bruker</h2>
   <p>
@@ -28,7 +36,7 @@
     Parkerer du på et annet område blir du belastet som en "vanlig kunde" og opptar ikke en DIPS-plass.
   </p>
   <p>
-    Merk at bil nummer 7 (eller mer) vil måtte betale for parkeringen.
+    Merk at bil nummer 10 (eller mer) vil måtte betale for parkeringen.
   </p>
   <p>
     Det er ingen kobling mellom DIPS Park og APPCOA. Så det er viktig at man registrerer seg på DIPS Park før man parkerer på B-området.
