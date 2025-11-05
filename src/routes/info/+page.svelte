@@ -23,7 +23,7 @@
     <li>Send ditt telefonnummer til kontorleder</li>
     <li>Kontorleder sørger for å opprette bruker og knytte den til avtale</li>
     <li>Du mottar en SMS når dette er utført</li>
-    <li>Last ned appen APPCOA FLOW og registrer deg og bilen din. Viktig at det er samme telefonnummer som du har gitt til kontorleder.</li>
+    <li>Last ned appen APCOA FLOW og registrer deg og bilen din. Viktig at det er samme telefonnummer som du har gitt til kontorleder.</li>
     <li>Parkeringsrabatten aktiveres ved å godkjenne avtalen. Meny → Fordelsparkering → Velg fordelen → Ferdigstill registrering</li>
     <li>TIPS: Valider at du blir belastet med 0,- første gang du parkerer</li>
   </ol>
@@ -31,7 +31,7 @@
   <h2>Hvordan fungerer det?</h2>
   <p>
     Biler som kjører inn i P-huset på Solsiden blir automatisk registrert med kameragjenkjenning.
-    Er du registrert i APPCOA sjekkes ditt registreringsnummer mot registrerte data i systemet og 
+    Er du registrert i APCOA sjekkes ditt registreringsnummer mot registrerte data i systemet og 
     får opp at du har en gyldig avtale. Det har ikke noe å si hvor på B-området du parkerer. 
     Parkerer du på et annet område blir du belastet som en "vanlig kunde" og opptar ikke en DIPS-plass.
   </p>
@@ -39,8 +39,8 @@
     Merk at bil nummer 10 (eller mer) vil måtte betale for parkeringen.
   </p>
   <p>
-    Det er ingen kobling mellom DIPS Park og APPCOA. Så det er viktig at man registrerer seg på DIPS Park før man parkerer på B-området.
-    Les mer om APPCOA FLOW og fordelsparkering <a href="https://leieparkering.no/MobileApp/Default.aspx">her</a>.
+    Det er ingen kobling mellom DIPS Park og APCOA. Så det er viktig at man registrerer seg på DIPS Park før man parkerer på B-området.
+    Les mer om APCOA FLOW og fordelsparkering <a href="https://leieparkering.no/MobileApp/Default.aspx">her</a>.
   </p>
 </section>
 
