@@ -1,77 +1,85 @@
 <script lang="ts">
-  import { css } from '@emotion/css';
-  import { createEventDispatcher } from 'svelte';
-  import Button from "$lib/components/Button.svelte";
-  
-  const dispatch = createEventDispatcher();
+	import { css } from '@emotion/css';
+	import { createEventDispatcher } from 'svelte';
+	import Button from '$lib/components/Button.svelte';
 
-  export let style
-  export let expandedStyle: any = {}
+	const dispatch = createEventDispatcher();
 
-  let expanded = false;
-  
-  $: expandedClasses = 'expanded'
+	export let style;
+	export let expandedStyle: any = {};
 
-  const toggleExpanded = () => {
-    expanded = !expanded
-    if (expanded) {
-      expandedClasses = 'expanded visible'
-    }
-    else {
-      expandedClasses = 'expanded'
-    }
-    dispatch('buttonClick', expanded);
-  }
+	let expanded = false;
 
-  $: buttonStyle = {
-    ...style,
-    backgroundColor: expanded && !!style.expandedBackgroundColor ? style.expandedBackgroundColor : style.backgroundColor,
-    color: expanded && !!style.expandedColor ? style.expandedColor : style.color,
-    hoverColor: expanded && !!style.expandedHoverColor ? style.expandedHoverColor : style.hoverColor
-  }
+	$: expandedClasses = 'expanded';
 
-  $: expandedExtra = css`
-    position: ${expandedStyle.position ? expandedStyle.position : 'static'};
-	`;
+	const toggleExpanded = () => {
+		expanded = !expanded;
+		if (expanded) {
+			expandedClasses = 'expanded visible';
+		} else {
+			expandedClasses = 'expanded';
+		}
+		dispatch('buttonClick', expanded);
+	};
 
-  $: containerStyle = css`
-    box-shadow: ${expanded ? 'none' : '0px 4px 4px 0px rgba(0, 0, 0, 0.2)'};
+	$: buttonStyle = {
+		...style,
+		backgroundColor:
+			expanded && !!style.expandedBackgroundColor
+				? style.expandedBackgroundColor
+				: style.backgroundColor,
+		color: expanded && !!style.expandedColor ? style.expandedColor : style.color,
+		hoverColor:
+			expanded && !!style.expandedHoverColor ? style.expandedHoverColor : style.hoverColor,
+		borderRadius: expanded ? '5px 5px 0 0' : '5px',
+		boxShadow: expanded ? 'none' : '0px 4px 4px 0px rgba(0, 0, 0, 0.2)'
+	};
+
+	$: expandedExtra = css`
+		position: ${expandedStyle.position ? expandedStyle.position : 'static'};
 	`;
 </script>
 
-
-<div class="container {containerStyle}">
-  <div class="button" role="button" tabindex="0"  on:click={toggleExpanded} on:keydown={() => {}} aria-expanded={expanded}>
-    <Button style={buttonStyle}>
-      <slot name="button" />
-    </Button>
-  </div>
-  <div class="{expandedClasses} {expandedExtra}">
-    {#if expanded}
-      <slot name="expanded" />
-    {/if}
-  </div>
+<div class="container">
+	<div
+		class="button"
+		role="button"
+		tabindex="0"
+		on:click={toggleExpanded}
+		on:keydown={() => {}}
+		aria-expanded={expanded}
+	>
+		<Button style={buttonStyle}>
+			<slot name="button" />
+		</Button>
+	</div>
+	<div class="{expandedClasses} {expandedExtra}">
+		{#if expanded}
+			<slot name="expanded" />
+		{/if}
+	</div>
 </div>
 
 <style>
-  .container {
-    position: relative;
-  }
-  
-  .expanded {
-    font-size: 18px;
-    height: 0;
-    padding: 0 15px;
-    overflow: hidden;
-    transition: 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--neutral-30);
-  }
+	.container {
+		position: relative;
+	}
 
-  .expanded.visible {
-    height: auto;
-    padding: 13px 15px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
-  }
+	.expanded {
+		font-size: 18px;
+		height: 0;
+		padding: 0 15px;
+		overflow: hidden;
+		transition: 0.3s ease;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: var(--neutral-30);
+		border-radius: 0 0 5px 5px;
+	}
+
+	.expanded.visible {
+		height: auto;
+		padding: 13px 15px;
+		box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+	}
 </style>
