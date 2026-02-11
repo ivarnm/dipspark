@@ -1,17 +1,17 @@
 <script lang="ts">
-	import '../styles/fonts.css';
-	import '../styles/themes.scss';
-	import '../styles/global.scss';
-	import { bookingDays, theme, user, users } from '$lib/stores/stores';
-	import Logo from '$lib/components/Logo.svelte';
-	import Login from '$lib/components/Login.svelte';
-	import UserDropdown from '$lib/components/UserDropdown.svelte';
-	import ThemeSelector from '$lib/components/ThemeSelector.svelte';
-	import ShyGhost from '$lib/components/halloween/ShyGhost.svelte';
-	import Snow from '$lib/components/christmas/Snow.svelte';
-	import PlusIcon from '$lib/components/PlusIcon.svelte';
+	import "../styles/fonts.css"
+	import "../styles/themes.scss"
+	import "../styles/global.scss"
+	import { bookingDays, theme, user, users } from '$lib/stores/stores'
+	import Logo from "$lib/components/Logo.svelte";
+	import Login from "$lib/components/Login.svelte";
+	import UserDropdown from "$lib/components/UserDropdown.svelte"
+	import ThemeSelector from "$lib/components/ThemeSelector.svelte";
+	import ShyGhost from "$lib/components/halloween/ShyGhost.svelte";
+	import Snow from "$lib/components/christmas/Snow.svelte";
+	import PlusIcon from "$lib/components/PlusIcon.svelte";
 
-	import { page } from '$app/stores';
+	import { page } from "$app/stores"
 
 	export let data;
 
@@ -28,9 +28,10 @@
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+    <title>{title}</title>
 </svelte:head>
 <div>
+	
 	<header>
 		<div class="navbar">
 			<div class="links">
@@ -57,9 +58,9 @@
 	</header>
 	<main>
 		{#if isLoggedIn || isAnonymousPath}
-			<slot />
+			<slot />	
 		{:else}
-			<Login />
+		 <Login/>
 		{/if}
 	</main>
 	{#if isLoggedIn && path === '/'}
@@ -68,13 +69,14 @@
 	{#if !(path === '/info' || path === '/admin/statistics') && $theme === 'halloween'}
 		<ShyGhost />
 	{/if}
-	{#if $theme === 'christmas' || $theme === 'winter'}
+	{#if  $theme === 'christmas' || $theme === 'winter'}
 		<Snow />
 	{/if}
 
 	<div class="background"></div>
 	<div class="background-overlay"></div>
 </div>
+
 
 <style lang="scss">
 	header {
@@ -117,15 +119,13 @@
 		pointer-events: none;
 	}
 
-	:global(.halloween-theme),
-	:global(.christmas-theme),
-	:global(.winter-theme) {
+	:global(.halloween-theme), :global(.christmas-theme), :global(.winter-theme) {
 		.background {
 			position: fixed;
 			top: 0;
 			left: 0;
-			width: 100vw;
-			height: 100vh;
+			width: 100%;
+			height: 100%;
 			z-index: -3;
 			background-size: cover;
 			background-position: left;
@@ -136,8 +136,8 @@
 			position: fixed;
 			top: 0;
 			left: 0;
-			width: 100vw;
-			height: 100vh;
+			width: 100%;
+			height: 100%;
 			z-index: -2;
 			background-color: rgba(0, 0, 0, 0.8);
 		}
@@ -148,7 +148,7 @@
 			background-image: url('/images/halloween/background.jpg');
 		}
 	}
-
+	
 	:global(.christmas-theme) {
 		.background {
 			background-image: url('/images/christmas/background.jpg');
@@ -159,13 +159,14 @@
 		}
 	}
 
-	:global(.winter-theme) {
-		.background {
-			background-image: url('/images/winter/background.png');
-		}
+  :global(.winter-theme) {
+    .background {
+      background-image: url('/images/winter/background.png');
+    }
 
-		.background-overlay {
-			background-color: rgba(0, 0, 0, 0.5);
+    .background-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+
 		}
-	}
+  }
 </style>
