@@ -15,7 +15,7 @@
       <li>Book også i helger for å unngå overraskelser</li>
     </ul>
 
-  <h2>Registre bruker</h2>
+  <h2>Registrere bruker</h2>
   <p>
     For å benytte seg av gratis parkering må du først knyttes til DIPS sin parkeringsavtale:
   </p>
@@ -40,7 +40,7 @@
   </p>
   <p>
     Det er ingen kobling mellom DIPS Park og APCOA. Så det er viktig at man registrerer seg på DIPS Park før man parkerer på B-området.
-    Les mer om APCOA FLOW og fordelsparkering <a href="https://leieparkering.no/MobileApp/Default.aspx">her</a>.
+    Les mer om APCOA FLOW <a href="https://www.apcoa.no/finn-parkering/betal-for-parkering/apcoa-flow">her</a>.
   </p>
 </section>
 
