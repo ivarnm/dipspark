@@ -3,8 +3,7 @@
     DIPS Park er en intern side for ansatte ved DIPS Trondheim for reservasjon av parkeringsplasser.
   </p>
   <p>
-    Kontoret disponerer 9 parkeringsplasser i B-området (U1) i Solsiden Parkeringshus. 
-    Én av parkeringsplassene er fast tildelt en av våre ansatte. Når fast bruker ikke bruker plassen kan øvrige ansatte ved kontoret bruke den.
+    Kontoret disponerer 9 parkeringsplasser i B-området (U1) i Solsiden Parkeringshus.
   </p>
 
   <p>
